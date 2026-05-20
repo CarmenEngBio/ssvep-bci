@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SSVEP BCI — Fase 1</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #111;
+    color: #eee;
+    font-family: 'Segoe UI', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem 1rem;
+    gap: 1.4rem;
+  }
+
+  h1 { font-size: 1.4rem; color: #00e5ff; letter-spacing: .15em; }
+
+  /* ── Estado ── */
+  #status {
+    font-size: .85rem; color: #f44336; transition: color .3s;
+  }
+  #status.ok { color: #4caf50; }
+
+  /* ── Output ── */
+  #output {
+    background: #1a1a1a;
+    border: 2px solid #00e5ff;
+    border-radius: 10px;
+    padding: .8rem 2rem;
+    font-size: 2.4rem;
+    letter-spacing: .5em;
+    color: #00e5ff;
+    min-width: 260px;
+    text-align: center;
+  }
+
+  /* ── Barras ── */
+  .bar-row {
+    display: flex; align-items: center; gap: .8rem;
+    width: 320px; font-size: .8rem; color: #777;
+  }
+  .bar-row label { width: 80px; text-align: right; flex-shrink: 0; }
+  .bar-wrap {
+    flex: 1; background: #222; border-radius: 20px;
+    height: 16px; overflow: hidden; border: 1px solid #333; position: relative;
+  }
+  .bar-fill {
+    height: 100%; width: 0%; border-radius: 20px;
+    transition: width .4s ease, background .3s;
+  }
+  .bar-val {
+    position: absolute; right: 6px; top: 50%;
+    transform: translateY(-50%);
+    font-size: .65rem; font-weight: 700; color: #111; pointer-events: none;
+  }
+  #bar-conf  { background: #4caf50; }
+  #bar-qual  { background: #ff9800; }
+
+  /* ── Teclado ── */
+  #keypad {
+    display: grid;
+    grid-template-columns: repeat(3, 96px);
+    gap: 10px;
+  }
+
+  .key {
+    width: 96px; height: 96px;
+    background: #1c1c1c;
+    border: 2px solid #333;
+    border-radius: 10px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    font-size: 1.9rem; font-weight: 700;
+    user-select: none;
+  }
+  .key small {
+    font-size: .58rem; color: #555;
+    font-weight: 400; margin-top: 3px;
+  }
+
+  .key.on  { background: #ffffff; color: #111; }
+  .key.off { background: #1c1c1c; color: #eee; }
+  .key.on  small { color: #444; }
+
+  .key.predicted {
+    border-color: #ff4081 !important;
+    box-shadow: 0 0 18px #ff408199;
+  }
+
+  .key.action { font-size: .95rem; color: #555; }
+
+  /* ── Buffer ── */
+  #buffer-wrap { font-size: .85rem; color: #555; }
+  #buffer-wrap span { color: #aaa; letter-spacing: .2em; }
+
+  /* ── Scores debug ── */
+  #scores {
+    display: grid; grid-template-columns: repeat(5, 1fr);
+    gap: 4px; width: 320px;
+  }
+  .score-cell {
+    background: #1a1a1a; border: 1px solid #2a2a2a;
+    border-radius: 6px; padding: 4px 6px;
+    font-size: .7rem; text-align: center; color: #555;
+    transition: background .3s, color .3s;
+  }
+  .score-cell.top { background: #1a2a1a; color: #4caf50; border-color: #4caf50; }
+  .score-cell b { display: block; font-size: .9rem; color: #aaa; }
+</style>
+</head>
+<body>
+
+<h1>SSVEP BCI — Fase 1</h1>
+
+<div id="status">● Conectando al servidor Python...</div>
+
+<div id="output">—</div>
+
+<!-- Barra confianza CCA -->
+<div class="bar-row">
+  <label>Confianza</label>
+  <div class="bar-wrap">
+    <div class="bar-fill" id="bar-conf"></div>
+    <span class="bar-val" id="val-conf">0%</span>
+  </div>
+</div>
+
+<!-- Barra calidad señal -->
+<div class="bar-row">
+  <label>Señal EEG</label>
+  <div class="bar-wrap">
+    <div class="bar-fill" id="bar-qual"></div>
+    <span class="bar-val" id="val-qual">—</span>
+  </div>
+</div>
+
+<!-- Teclado -->
+<div id="keypad">
+  <div class="key" data-key="1" data-freq="8.5">1<small>8.5 Hz</small></div>
+  <div class="key" data-key="2" data-freq="9.0">2<small>9.0 Hz</small></div>
+  <div class="key" data-key="3" data-freq="9.5">3<small>9.5 Hz</small></div>
+  <div class="key" data-key="4" data-freq="10.0">4<small>10.0 Hz</small></div>
+  <div class="key" data-key="5" data-freq="10.5">5<small>10.5 Hz</small></div>
+  <div class="key" data-key="6" data-freq="11.0">6<small>11.0 Hz</small></div>
+  <div class="key" data-key="7" data-freq="11.5">7<small>11.5 Hz</small></div>
+  <div class="key" data-key="8" data-freq="12.0">8<small>12.0 Hz</small></div>
+  <div class="key" data-key="9" data-freq="12.5">9<small>12.5 Hz</small></div>
+  <div class="key action" data-key="RESET" data-freq="0">↺<small>RESET</small></div>
+  <div class="key" data-key="0" data-freq="8.0">0<small>8.0 Hz</small></div>
+  <div class="key action" data-key="ENTER" data-freq="0">✓<small>ENTER</small></div>
+</div>
+
+<!-- Secuencia acumulada -->
+<div id="buffer-wrap">Secuencia: <span id="buffer">—</span></div>
+
+<!-- Scores CCA por frecuencia -->
+<div id="scores"></div>
+
+<script>
+// ══════════════════════════════════════════
+//  FLICKER ENGINE (requestAnimationFrame)
+// ══════════════════════════════════════════
+const flickerKeys = Array.from(document.querySelectorAll('.key[data-freq]'))
+  .filter(el => parseFloat(el.dataset.freq) > 0)
+  .map(el => ({
+    el,
+    period:  1000 / (parseFloat(el.dataset.freq) * 2),
+    elapsed: 0,
+    state:   false,
+  }));
+
+let lastT = null;
+function flicker(ts) {
+  if (!lastT) lastT = ts;
+  const dt = ts - lastT; lastT = ts;
+  flickerKeys.forEach(k => {
+    k.elapsed += dt;
+    if (k.elapsed >= k.period) {
+      k.elapsed -= k.period;
+      k.state = !k.state;
+      k.el.classList.toggle('on',  k.state);
+      k.el.classList.toggle('off', !k.state);
+    }
+  });
+  requestAnimationFrame(flicker);
+}
+requestAnimationFrame(flicker);
+
+
+// ══════════════════════════════════════════
+//  WEBSOCKET
+// ══════════════════════════════════════════
+let buffer = '';
+
+function connect() {
+  const ws = new WebSocket('ws://localhost:8765');
+
+  ws.onopen = () => {
+    document.getElementById('status').textContent = '● Cyton conectado';
+    document.getElementById('status').classList.add('ok');
+  };
+
+  ws.onclose = () => {
+    document.getElementById('status').textContent = '● Sin conexión — reintentando...';
+    document.getElementById('status').classList.remove('ok');
+    setTimeout(connect, 2000);
+  };
+
+  ws.onmessage = e => updateUI(JSON.parse(e.data));
+}
+
+// ══════════════════════════════════════════
+//  UI UPDATE
+// ══════════════════════════════════════════
+function updateUI(msg) {
+  const label = msg.label;
+  const conf  = msg.confidence || 0;
+  const qual  = msg.signal_quality;
+
+  // Output
+  document.getElementById('output').textContent = label ?? '?';
+
+  // Barra confianza
+  const pct = Math.round(conf * 100);
+  const bc  = document.getElementById('bar-conf');
+  bc.style.width      = pct + '%';
+  bc.style.background = pct > 60 ? '#4caf50' : pct > 35 ? '#ff9800' : '#f44336';
+  document.getElementById('val-conf').textContent = pct + '%';
+
+  // Barra calidad señal (varianza → normalizada a 0-100 con cap a 500 µV²)
+  if (qual !== undefined) {
+    const qpct = Math.min(100, Math.round(qual / 5));
+    const bq   = document.getElementById('bar-qual');
+    bq.style.width      = qpct + '%';
+    bq.style.background = qpct > 60 ? '#4caf50' : qpct > 20 ? '#ff9800' : '#f44336';
+    document.getElementById('val-qual').textContent = qual.toFixed(1) + ' µV²';
+  }
+
+  // Highlight tecla predicha
+  document.querySelectorAll('.key.predicted').forEach(k => k.classList.remove('predicted'));
+  if (label) {
+    const el = document.querySelector(`.key[data-key="${label}"]`);
+    if (el) el.classList.add('predicted');
+  }
+
+  // Buffer
+  if (label === 'RESET')       buffer = '';
+  else if (label && label !== 'ENTER') buffer += label;
+  document.getElementById('buffer').textContent = buffer || '—';
+
+  // Scores debug
+  if (msg.scores) renderScores(msg.scores, label);
+}
+
+function renderScores(scores, top) {
+  const div = document.getElementById('scores');
+  div.innerHTML = Object.entries(scores)
+    .sort((a, b) => a[0] - b[0])
+    .map(([k, v]) => `
+      <div class="score-cell ${k === top ? 'top' : ''}">
+        <b>${k}</b>${(v * 100).toFixed(1)}%
+      </div>`)
+    .join('');
+}
+
+connect();
+</script>
+</body>
+</html>
