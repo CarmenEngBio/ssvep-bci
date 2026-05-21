@@ -157,6 +157,16 @@
 
 <!-- Secuencia acumulada -->
 <div id="buffer-wrap">Secuencia: <span id="buffer">—</span></div>
+<div id="demo-wrap">
+  <label>Simular foco en tecla: </label>
+  <select id="demo-target" onchange="sendTarget(this.value)">
+    <option value="0">0</option><option value="1">1</option>
+    <option value="2">2</option><option value="3">3</option>
+    <option value="4">4</option><option value="5" selected>5</option>
+    <option value="6">6</option><option value="7">7</option>
+    <option value="8">8</option><option value="9">9</option>
+  </select>
+</div>
 
 <!-- Scores CCA por frecuencia -->
 <div id="scores"></div>
@@ -268,6 +278,11 @@ function renderScores(scores, top) {
     .join('');
 }
 
+function sendTarget(key) {
+  if (socket && socket.readyState === WebSocket.OPEN) {
+    socket.send(JSON.stringify({ type: 'set_target', key }));
+  }
+}
 connect();
 </script>
 </body>
