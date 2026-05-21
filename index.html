@@ -206,7 +206,7 @@ requestAnimationFrame(flicker);
 //  WEBSOCKET
 // ══════════════════════════════════════════
 let buffer = '';
-
+let socket = null;
 function connect() {
   const ws = new WebSocket('ws://localhost:8765');
 
