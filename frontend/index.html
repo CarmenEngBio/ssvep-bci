@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SSVEP BCI — Fase 1</title>
+<link rel="stylesheet" href="./assets/css/styles.css"/>
+</head>
+<body>
+
+<h1>SSVEP BCI — Fase 1</h1>
+<div id="status">● Conectando al servidor Python...</div>
+<div id="output">—</div>
+
+<div class="bar-row">
+  <label>Confianza</label>
+  <div class="bar-wrap">
+    <div class="bar-fill" id="bar-conf"></div>
+    <span class="bar-val" id="val-conf">0%</span>
+  </div>
+</div>
+
+<div class="bar-row">
+  <label>Señal EEG</label>
+  <div class="bar-wrap">
+    <div class="bar-fill" id="bar-qual"></div>
+    <span class="bar-val" id="val-qual">—</span>
+  </div>
+</div>
+
+<div id="keypad">
+  <div class="key" data-key="1" data-freq="8.5">1<small>8.5 Hz</small></div>
+  <div class="key" data-key="2" data-freq="9.0">2<small>9.0 Hz</small></div>
+  <div class="key" data-key="3" data-freq="9.5">3<small>9.5 Hz</small></div>
+  <div class="key" data-key="4" data-freq="10.0">4<small>10.0 Hz</small></div>
+  <div class="key" data-key="5" data-freq="10.5">5<small>10.5 Hz</small></div>
+  <div class="key" data-key="6" data-freq="11.0">6<small>11.0 Hz</small></div>
+  <div class="key" data-key="7" data-freq="11.5">7<small>11.5 Hz</small></div>
+  <div class="key" data-key="8" data-freq="12.0">8<small>12.0 Hz</small></div>
+  <div class="key" data-key="9" data-freq="12.5">9<small>12.5 Hz</small></div>
+  <div class="key action" data-key="RESET" data-freq="0">↺<small>RESET</small></div>
+  <div class="key" data-key="0" data-freq="8.0">0<small>8.0 Hz</small></div>
+  <div class="key action" data-key="ENTER" data-freq="0">✓<small>ENTER</small></div>
+</div>
+
+<div id="buffer-wrap">Secuencia: <span id="buffer">—</span></div>
+
+<div id="demo-wrap">
+  <label>Simular foco en tecla:</label>
+  <select id="demo-target" onchange="sendTarget(this.value)">
+    <option value="0">0</option><option value="1">1</option>
+    <option value="2">2</option><option value="3">3</option>
+    <option value="4">4</option><option value="5" selected>5</option>
+    <option value="6">6</option><option value="7">7</option>
+    <option value="8">8</option><option value="9">9</option>
+  </select>
+</div>
+
+<div id="scores"></div>
+
+<script src="./assets/js/server.js"> 
+
+</script>
+</body>
+</html>
