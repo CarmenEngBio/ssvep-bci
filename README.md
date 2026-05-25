@@ -1,36 +1,36 @@
-# SSVEP BCI — Fase 1 (OpenBCI Cyton)
+# SSVEP BCI — Phase 1 (OpenBCI Cyton)
 
-TFG · Biomedical Engineering · CEU San Pablo · Carmen Areses Sánchez
+Bachelor Thesis · Biomedical Engineering · Carmen Areses Sánchez
 
 ---
 
-## Requisitos
+## Requirements
 
 ```
 pip install websockets numpy scipy scikit-learn brainflow
 ```
 
-## Antes de arrancar
+## Before beginning
 
-1. Conecta el **dongle USB** del Cyton
-2. Abre el **Administrador de dispositivos** → Puertos (COM y LPT)
-3. Anota el puerto: `COM3`, `COM4`, etc.
-4. Edita la línea en `server.py`:
+1. Connect the **USB Dongle** with the Cyton board
+2. Open the **Device manager** → Ports (COM and LPT)
+3. Note down the port: usually `COM3`or `COM4`.
+4. Edit the line in `server.py` file:
    ```python
-   SERIAL_PORT = "COM3"   # ← pon tu puerto aquí
+   SERIAL_PORT = "COM3"   # ← write down the port here
    ```
 
-## Arrancar
+## Running the program
 
 ```bash
 python server.py
 ```
 
-Luego abre `index.html` en el navegador (doble clic).
+Then open the `index.html` file in your browser (double-click).
 
-## Colocación de electrodos recomendada
+## Electrodes placement arrangement
 
-| Canal Cyton | Electrodo | Región |
+| Channel | Electrode | Region |
 |-------------|-----------|--------|
 | CH1 | Fp1 | Frontal |
 | CH2 | Fp2 | Frontal |
@@ -38,10 +38,10 @@ Luego abre `index.html` en el navegador (doble clic).
 | CH4 | C4  | Central |
 | CH5 | P7  | Parieto-occipital |
 | CH6 | P8  | Parieto-occipital |
-| **CH7** | **O1** | **Occipital ← más importante** |
-| **CH8** | **O2** | **Occipital ← más importante** |
+| **CH7** | **O1** | **Occipital ← most important** |
+| **CH8** | **O2** | **Occipital ← most important** |
 
-## Frecuencias por tecla
+## Frequencies associated per channel 
 
 | Tecla | Hz  |
 |-------|-----|
@@ -56,11 +56,11 @@ Luego abre `index.html` en el navegador (doble clic).
 | 8     | 12.0 |
 | 9     | 12.5 |
 
-## Archivos
+## Project Files
 
 ```
 ssvep-fase1/
-├── server.py    ← backend: Cyton + preprocesado + CCA + WebSocket
-├── index.html   ← UI: flicker + visualización en tiempo real
+├── server.py    ← backend: Cyton + preprocessing + CCA + WebSocket
+├── index.html   ← UI: flicker + real-time visualization
 └── README.md
 ```
