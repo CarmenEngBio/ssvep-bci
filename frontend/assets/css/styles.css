@@ -1,3 +1,4 @@
+/* Visualization configuration of the project: colours, positions, sizes, ... */ 
 * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     background: #111; color: #eee;

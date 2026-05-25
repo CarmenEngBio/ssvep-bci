@@ -1,0 +1,1 @@
+/* Here it will be displayed the main JavaScript code that will call the other js */
