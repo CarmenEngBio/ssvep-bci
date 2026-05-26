@@ -9,7 +9,7 @@ CAMBIAR MODO AQUÍ ↓
 """
 
 MODE = "DEMO"       # "DEMO" | "HARDWARE"
-SERIAL_PORT = "COM3"  # solo importa si MODE = "HARDWARE"
+SERIAL_PORT = "COM5"  # solo importa si MODE = "HARDWARE"
                       # Administrador de dispositivos → Puertos → COMx
 
 # ══════════════════════════════════════════════════════════════

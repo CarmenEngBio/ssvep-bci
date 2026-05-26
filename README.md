@@ -14,7 +14,7 @@ pip install websockets numpy scipy scikit-learn brainflow
 
 1. Connect the **USB Dongle** with the Cyton board
 2. Open the **Device manager** → Ports (COM and LPT)
-3. Note down the port: usually `COM3`or `COM4`.
+3. Note down the port: usually `COM3`, `COM4`,  `COM5` or similar.
 4. Edit the line in `server.py` file:
    ```python
    SERIAL_PORT = "COM3"   # ← write down the port here
