@@ -1,3 +1,19 @@
+
+/* ══════════════════════════════════════════════════════════════
+   styles.css  —  Estilos globales SSVEP BCI
+   
+   DECISIÓN DE DISEÑO (justificada en literatura):
+   · Parpadeo solo en el número (texto), no en la celda entera.
+     Reduce la superficie parpadeante → menos fatiga visual.
+     Fuente: Dehais et al. 2022 (baja amplitud de modulación
+     mejora UX sin penalizar accuracy).
+   · Celdas más pequeñas y más separadas, inspiradas en las
+     dimensiones de Cheng et al. 2002 (2×2.7 cm, gap 4 cm).
+   · Paleta de grises neutros; sin colores saturados en el
+     teclado para no competir con el estímulo visual.
+   · Predicción: borde sutil en lugar de glow rosa llamativo.
+   ══════════════════════════════════════════════════════════════ */
+
 /* Visualization configuration of the project: colours, positions, sizes, ... */ 
 * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
@@ -41,6 +57,15 @@
     align-items: center; justify-content: center;
     font-size: 1.9rem; font-weight: 700; user-select: none;
   }
+  /*
+  Para evitar mareo entre muchas otras cosas pero lo pirncipal sería implementar esto:
+  .key.on  { color: #f0f0f0; }
+  .key.on small { color: #666; }
+  .key.off { color: #2a2a2a; }
+  .key.off small { color: #333; }
+   Que se basa en que parpaedee solo el número y no la celda grande que confunde, cansa y distrae al sujeto. Se deben realizar
+   más cambios pero este es crucial. 
+  */
   .key small { font-size: .58rem; color: #555; font-weight: 400; margin-top: 3px; }
   .key.on  { background: #ffffff; color: #111; }
   .key.off { background: #1c1c1c; color: #eee; }
