@@ -102,5 +102,5 @@ ssvep-fase1/
 | `server.py` | Handler WebSocket and launch of server |
 | `flicker.js` | Key flickering at SSVEP exact frequencies |
 | `websocket.js` | Conection/re-conection of the WebSocket, simulated sent key |
-| `ui.js` | The DOM management and manipulation (baras, scores, buffer, …) |
+| `ui.js` | The DOM management and manipulation (bars, scores, buffer, …) |
 | `app.js` | Entry main point that launches the flickering and the websocket communication |
