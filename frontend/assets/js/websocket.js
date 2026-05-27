@@ -1,24 +1,36 @@
 
-// ── WEBSOCKET ───────────────────────────────────────────
-let buffer = '';
-let socket = null;   // ← variable global accesible por sendTarget
+// WEBSOCKET - Where Python server connection is established
 
+//  Manages the WebSocket connection and automatic re-attempting connection.
+//  Has dependencies with the ui.js (setConnectionStatus, updateUI).
+ 
+var WS_URL   = 'ws://localhost:8765';
+var RETRY_MS = 2000;
+ 
+var socket = null;
+ 
+function sendTarget(key) {
+  if (socket && socket.readyState === WebSocket.OPEN) {
+    socket.send(JSON.stringify({ type: 'set_target', key: key }));
+  }
+}
+ 
 function connect() {
-  socket = new WebSocket('ws://localhost:8765');  // ← asigna a 'socket', no 'const ws'
-
-  socket.onopen = () => {
-    document.getElementById('status').textContent = '● Cyton conectado';
-    document.getElementById('status').classList.add('ok');
-    // Enviar tecla inicial al conectar
-    sendTarget(document.getElementById('demo-target').value);
+  socket = new WebSocket(WS_URL);
+ 
+  socket.onopen = function() {
+    setConnectionStatus('connected');
+    var sel = document.getElementById('demo-target');
+    if (sel) sendTarget(sel.value);
   };
-
-  socket.onclose = () => {
-    document.getElementById('status').textContent = '● Sin conexión — reintentando...';
-    document.getElementById('status').classList.remove('ok');
+ 
+  socket.onclose = function() {
+    setConnectionStatus('disconnected');
     socket = null;
-    setTimeout(connect, 2000);
+    setTimeout(connect, RETRY_MS);
   };
-
-  socket.onmessage = e => updateUI(JSON.parse(e.data));
+ 
+  socket.onmessage = function(e) {
+    updateUI(JSON.parse(e.data));
+  };
 }

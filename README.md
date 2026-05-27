@@ -10,14 +10,16 @@ Bachelor Thesis · Biomedical Engineering · Carmen Areses Sánchez
 pip install websockets numpy scipy scikit-learn brainflow
 ```
 
-## Before beginning
-
-1. Connect the **USB Dongle** with the Cyton board
-2. Open the **Device manager** → Ports (COM and LPT)
-3. Note down the port: usually `COM3`, `COM4`,  `COM5` or similar.
-4. Edit the line in `server.py` file:
+## Before begin
+ 
+1. Connect the **USB Dongle** with the Cyton board.
+2. Open the **Device Manager** → Ports (COM y LPT)
+3. Note down the port: usually `COM3`,`COM4`, `COM5` or similar.
+4. Edit `backend/config.py`:
    ```python
-   SERIAL_PORT = "COM3"   # ← write down the port here
+   MODE        = "HARDWARE"   # change from "DEMO" to "HARDWARE"
+   SERIAL_PORT = "COM5"       # write down your port linked to the OpenBCI equipment 
+   ```
    ```
 
 ## Running the program
@@ -56,7 +58,7 @@ Then open the `index.html` file in your browser (double-click).
 | 8     | 12.0 |
 | 9     | 12.5 |
 
-## Project Files
+## Project Files (initial sketch)
 
 ```
 ssvep-fase1/
@@ -64,3 +66,42 @@ ssvep-fase1/
 ├── index.html   ← UI: flicker + real-time visualization
 └── README.md
 ```
+
+## Project Ideal Architecture & Structure
+ 
+```
+ssvep-fase1/
+├── backend/
+│   ├── config.py          ← ★ todos los parámetros aquí
+│   ├── eegsources.py      ← DemoEEG + CytonEEG
+│   ├── preprocessing.py   ← bandpass · notch · CAR
+│   ├── cca.py             ← señal de referencia + clasificador CCA
+│   ├── voting.py          ← votación temporal por mayoría
+│   └── server.py          ← WebSocket + main (punto de entrada)
+│
+└── frontend/
+    ├── index.html
+    └── assets/
+        ├── css/
+        │   └── styles.css
+        └── js/
+            ├── app.js         ← punto de entrada (importa los demás)
+            ├── flicker.js     ← motor de parpadeo SSVEP (rAF)
+            ├── websocket.js   ← conexión WebSocket + reconexión
+            └── ui.js          ← actualización del DOM
+```
+ 
+### Modules Functionalities
+ 
+| Archivo | Responsabilidad |
+|---|---|
+| `config.py` | Parámetros del sistema (FS, ventana, frecuencias, umbrales…) |
+| `eegsources.py` | Abstracción de fuente EEG (demo o hardware real) |
+| `preprocessing.py` | Filtros: paso-banda, notch 50 Hz, CAR |
+| `cca.py` | Señal de referencia sinusoidal + clasificación por CCA |
+| `voting.py` | Votación por mayoría para reducir falsos positivos |
+| `server.py` | Handler WebSocket y arranque del servidor |
+| `flicker.js` | Parpadeo de teclas a frecuencias SSVEP exactas |
+| `websocket.js` | Conexión/reconexión WebSocket, envío de tecla simulada |
+| `ui.js` | Toda la manipulación del DOM (barras, scores, buffer…) |
+| `app.js` | Punto de entrada: importa y arranca flicker + websocket |

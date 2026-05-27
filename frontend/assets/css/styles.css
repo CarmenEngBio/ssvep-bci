@@ -1,94 +1,262 @@
 
-/* ══════════════════════════════════════════════════════════════
-   styles.css  —  Estilos globales SSVEP BCI
+/* styles.css SSVEP BCI
    
-   DECISIÓN DE DISEÑO (justificada en literatura):
-   · Parpadeo solo en el número (texto), no en la celda entera.
-     Reduce la superficie parpadeante → menos fatiga visual.
-     Fuente: Dehais et al. 2022 (baja amplitud de modulación
-     mejora UX sin penalizar accuracy).
-   · Celdas más pequeñas y más separadas, inspiradas en las
-     dimensiones de Cheng et al. 2002 (2×2.7 cm, gap 4 cm).
-   · Paleta de grises neutros; sin colores saturados en el
-     teclado para no competir con el estímulo visual.
-   · Predicción: borde sutil en lugar de glow rosa llamativo.
-   ══════════════════════════════════════════════════════════════ */
+   DESIGN DECISIONS (supported by literature): 
+   · Blinking just on numbers and not on the full cell. 
+     This event avoids a huge flickering surface inducing less visual fatigue.
+     Reference: Dehais et al. 2022 (low modulation amplitude improving UX without accuracy penalty).
+   · Smaller cells and more separated, inspired in Cheng dimensions 
+     et al. 2002 (2×2.7 cm, gap 4 cm).
+   · Greys colours used; not bright or strong colours to avoid confusion.
+   · Prediction: is showed up as a subtle border instead of previous pink tone 
 
-/* Visualization configuration of the project: colours, positions, sizes, ... */ 
+ */
+ 
 * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    background: #111; color: #eee;
-    font-family: 'Segoe UI', sans-serif;
-    display: flex; flex-direction: column;
-    align-items: center; min-height: 100vh;
-    padding: 2rem 1rem; gap: 1.4rem;
-  }
-  h1 { font-size: 1.4rem; color: #00e5ff; letter-spacing: .15em; }
-  #status { font-size: .85rem; color: #f44336; transition: color .3s; }
-  #status.ok { color: #4caf50; }
-  #output {
-    background: #1a1a1a; border: 2px solid #00e5ff;
-    border-radius: 10px; padding: .8rem 2rem;
-    font-size: 2.4rem; letter-spacing: .5em;
-    color: #00e5ff; min-width: 260px; text-align: center;
-  }
-  .bar-row {
-    display: flex; align-items: center; gap: .8rem;
-    width: 320px; font-size: .8rem; color: #777;
-  }
-  .bar-row label { width: 80px; text-align: right; flex-shrink: 0; }
-  .bar-wrap {
-    flex: 1; background: #222; border-radius: 20px;
-    height: 16px; overflow: hidden; border: 1px solid #333; position: relative;
-  }
-  .bar-fill { height: 100%; width: 0%; border-radius: 20px; transition: width .4s ease, background .3s; }
-  .bar-val {
-    position: absolute; right: 6px; top: 50%;
-    transform: translateY(-50%);
-    font-size: .65rem; font-weight: 700; color: #111; pointer-events: none;
-  }
-  #bar-conf { background: #4caf50; }
-  #bar-qual { background: #ff9800; }
-  #keypad { display: grid; grid-template-columns: repeat(3, 96px); gap: 10px; }
-  .key {
-    width: 96px; height: 96px; background: #1c1c1c;
-    border: 2px solid #333; border-radius: 10px;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    font-size: 1.9rem; font-weight: 700; user-select: none;
-  }
-  /*
-  Para evitar mareo entre muchas otras cosas pero lo pirncipal sería implementar esto:
-  .key.on  { color: #f0f0f0; }
-  .key.on small { color: #666; }
-  .key.off { color: #2a2a2a; }
-  .key.off small { color: #333; }
-   Que se basa en que parpaedee solo el número y no la celda grande que confunde, cansa y distrae al sujeto. Se deben realizar
-   más cambios pero este es crucial. 
-  */
-  .key small { font-size: .58rem; color: #555; font-weight: 400; margin-top: 3px; }
-  .key.on  { background: #ffffff; color: #111; }
-  .key.off { background: #1c1c1c; color: #eee; }
-  .key.on small { color: #444; }
-  .key.predicted { border-color: #ff4081 !important; box-shadow: 0 0 18px #ff408199; }
-  .key.action { font-size: .95rem; color: #555; }
-  #buffer-wrap { font-size: .85rem; color: #555; }
-  #buffer-wrap span { color: #aaa; letter-spacing: .2em; }
-  #demo-wrap {
-    display: flex; align-items: center; gap: .6rem;
-    font-size: .85rem; color: #777;
-  }
-  #demo-target {
-    background: #1a1a1a; color: #eee;
-    border: 1px solid #333; border-radius: 6px;
-    padding: .3rem .6rem; font-size: .85rem;
-  }
-  #scores { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; width: 320px; }
-  .score-cell {
-    background: #1a1a1a; border: 1px solid #2a2a2a;
-    border-radius: 6px; padding: 4px 6px;
-    font-size: .7rem; text-align: center; color: #555;
-    transition: background .3s, color .3s;
-  }
-  .score-cell.top { background: #1a2a1a; color: #4caf50; border-color: #4caf50; }
-  .score-cell b { display: block; font-size: .9rem; color: #aaa; }
+ 
+body {
+  background: #1a1a1a;
+  color: #ccc;
+  font-family: 'Segoe UI', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  gap: 1.2rem;
+}
+ 
+h1 { font-size: 1.2rem; color: #aaa; letter-spacing: .1em; font-weight: 400; }
+ 
+/* Connection State */
+#status { font-size: .8rem; color: #888; transition: color .3s; }
+#status.ok { color: #6abf69; }
+ 
+/* Prediction Display */
+#output {
+  background: #222;
+  border: 1px solid #444;
+  border-radius: 8px;
+  padding: .7rem 2rem;
+  font-size: 2rem;
+  letter-spacing: .5em;
+  color: #ddd;
+  min-width: 240px;
+  text-align: center;
+}
+ 
+/* Confidence bars and signal quality */
+.bar-row {
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  width: 300px;
+  font-size: .78rem;
+  color: #666;
+}
+.bar-row label { width: 80px; text-align: right; flex-shrink: 0; }
+.bar-wrap {
+  flex: 1;
+  background: #2a2a2a;
+  border-radius: 20px;
+  height: 12px;
+  overflow: hidden;
+  border: 1px solid #333;
+  position: relative;
+}
+.bar-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 20px;
+  transition: width .4s ease, background .3s;
+}
+.bar-val {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: .6rem;
+  font-weight: 600;
+  color: #999;
+  pointer-events: none;
+}
+#bar-conf { background: #6abf69; }
+#bar-qual { background: #e6a817; }
+ 
+/* Numerical Keypad */
+/*
+  Inspired Dimensionality from Cheng et al. 2002:
+  buttons 2×2.7 cm, horizontal 4 cm separation / 4.5 cm vertical.
+  Enough wide separation is guaranteed to reduce visual interference 
+  between adyancent stimuli.
+*/
+#keypad {
+  display: grid;
+  grid-template-columns: repeat(3, 80px);
+  gap: 20px;   /* wide separation as Cheng 2002 */
+}
+ 
+.key {
+  width: 80px;
+  height: 80px;
+  background: #222;
+  border: 1px solid #3a3a3a;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: #bbb;           /* grey numbers */
+  user-select: none;
+}
+ 
+.key small {
+  font-size: .55rem;
+  color: #555;
+  font-weight: 400;
+  margin-top: 4px;
+}
+ 
+/*
+  BLINKING: just changes the text color (numbers), not the complete cell
+  ON STATE → bright white number
+  OFF STATE → dark grey number (nearly noticeable)  
+  The cell (#222) remains static → less visual fatigue will be presented
+  Reference: Dehais et al. 2022 — reduces the contrast depth.
+*/
+.key.on  { color: #f0f0f0; }
+.key.on small { color: #666; }
+.key.off { color: #2a2a2a; }
+.key.off small { color: #333; }
+ 
+/*
+  PREDICTION: slight bright border, without highlighting 
+  Informs the engineer/doctor without distracting the subject
+*/
+.key.predicted {
+  border-color: #888 !important;
+  border-width: 2px !important;
+}
+ 
+/* Action keys (RESET, ENTER) - no blinking, just remain off */
+.key.action {
+  font-size: .9rem;
+  color: #444;
+}
+.key.action small { color: #3a3a3a; }
+ 
+/* Buffer sequence */
+#buffer-wrap { font-size: .82rem; color: #555; }
+#buffer-wrap span { color: #888; letter-spacing: .2em; }
+ 
+/* Simulated key Selector (DEMO mode) */
+#demo-wrap {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  font-size: .8rem;
+  color: #666;
+}
+#demo-target {
+  background: #222;
+  color: #ccc;
+  border: 1px solid #333;
+  border-radius: 6px;
+  padding: .3rem .6rem;
+  font-size: .8rem;
+}
+ 
+/* CCA Scores CCA */
+#scores {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 4px;
+  width: 300px;
+}
+ 
+.score-cell {
+  background: #222;
+  border: 1px solid #2e2e2e;
+  border-radius: 5px;
+  padding: 4px 6px;
+  font-size: .68rem;
+  text-align: center;
+  color: #555;
+  transition: background .3s, color .3s;
+}
+.score-cell.top {
+  background: #1e281e;
+  color: #6abf69;
+  border-color: #4a7a49;
+}
+.score-cell b { display: block; font-size: .85rem; color: #888; }
+ 
+/*  Modal of instructions */
+#modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.82);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+ 
+#modal {
+  background: #222;
+  border: 1px solid #3a3a3a;
+  border-radius: 10px;
+  padding: 2rem 2.2rem;
+  max-width: 420px;
+  width: 90%;
+}
+ 
+#modal h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ccc;
+  margin-bottom: 1.2rem;
+  letter-spacing: .05em;
+}
+ 
+#modal ol {
+  padding-left: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: .65rem;
+}
+ 
+#modal li {
+  font-size: .83rem;
+  color: #999;
+  line-height: 1.5;
+}
+ 
+#modal strong { color: #ccc; font-weight: 600; }
+ 
+.modal-note {
+  margin-top: 1.2rem;
+  font-size: .75rem;
+  color: #666;
+  line-height: 1.5;
+}
+ 
+#modal-close {
+  margin-top: 1.4rem;
+  width: 100%;
+  padding: .65rem;
+  background: #2e2e2e;
+  border: 1px solid #444;
+  border-radius: 7px;
+  color: #ccc;
+  font-size: .85rem;
+  cursor: pointer;
+  transition: background .2s, border-color .2s;
+}
+ 
+#modal-close:hover {
+  background: #383838;
+  border-color: #666;
+}
