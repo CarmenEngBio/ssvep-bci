@@ -20,7 +20,6 @@ pip install websockets numpy scipy scikit-learn brainflow
    MODE        = "HARDWARE"   # change from "DEMO" to "HARDWARE"
    SERIAL_PORT = "COM5"       # write down your port linked to the OpenBCI equipment 
    ```
-   ```
 
 ## Running the program
 
