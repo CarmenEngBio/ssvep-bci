@@ -10,7 +10,7 @@ Bachelor Thesis · Biomedical Engineering · Carmen Areses Sánchez
 pip install websockets numpy scipy scikit-learn brainflow
 ```
 
-## Before begin
+## Before beginning
  
 1. Connect the **USB Dongle** with the Cyton board.
 2. Open the **Device Manager** → Ports (COM y LPT)
