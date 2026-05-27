@@ -29,7 +29,7 @@ python server.py
 
 Then open the `index.html` file in your browser (double-click).
 
-## Electrodes placement arrangement
+## Electrodes placement
 
 | Channel | Electrode | Region |
 |-------------|-----------|--------|
@@ -44,7 +44,7 @@ Then open the `index.html` file in your browser (double-click).
 
 ## Frequencies associated per channel 
 
-| Tecla | Hz  |
+| Key | Hz  |
 |-------|-----|
 | 0     | 8.0 |
 | 1     | 8.5 |
@@ -71,36 +71,36 @@ ssvep-fase1/
 ```
 ssvep-fase1/
 ├── backend/
-│   ├── config.py          ← ★ todos los parámetros aquí
+│   ├── config.py          ← parámeters are declared here
 │   ├── eegsources.py      ← DemoEEG + CytonEEG
 │   ├── preprocessing.py   ← bandpass · notch · CAR
-│   ├── cca.py             ← señal de referencia + clasificador CCA
-│   ├── voting.py          ← votación temporal por mayoría
-│   └── server.py          ← WebSocket + main (punto de entrada)
+│   ├── cca.py             ← reference signal + CCA classifier
+│   ├── voting.py          ← temporal majority voting algorithm
+│   └── server.py          ← WebSocket + main (entry endpoint)
 │
 └── frontend/
     ├── index.html
     └── assets/
         ├── css/
-        │   └── styles.css
+        │   └── styles.css (website visualization)
         └── js/
-            ├── app.js         ← punto de entrada (importa los demás)
-            ├── flicker.js     ← motor de parpadeo SSVEP (rAF)
-            ├── websocket.js   ← conexión WebSocket + reconexión
-            └── ui.js          ← actualización del DOM
+            ├── app.js         ← entry endpoint
+            ├── flicker.js     ← flickering SSVEP engine (rAF)
+            ├── websocket.js   ← WebSocket connection + re-connection
+            └── ui.js          ← update of DOM
 ```
  
 ### Modules Functionalities
  
-| Archivo | Responsabilidad |
+| File | Functionality |
 |---|---|
-| `config.py` | Parámetros del sistema (FS, ventana, frecuencias, umbrales…) |
-| `eegsources.py` | Abstracción de fuente EEG (demo o hardware real) |
-| `preprocessing.py` | Filtros: paso-banda, notch 50 Hz, CAR |
-| `cca.py` | Señal de referencia sinusoidal + clasificación por CCA |
-| `voting.py` | Votación por mayoría para reducir falsos positivos |
-| `server.py` | Handler WebSocket y arranque del servidor |
-| `flicker.js` | Parpadeo de teclas a frecuencias SSVEP exactas |
-| `websocket.js` | Conexión/reconexión WebSocket, envío de tecla simulada |
-| `ui.js` | Toda la manipulación del DOM (barras, scores, buffer…) |
-| `app.js` | Punto de entrada: importa y arranca flicker + websocket |
+| `config.py` | System paremeters (FS, window, frequencies, thresholds, …) |
+| `eegsources.py` | Abstraction of EGG source (DEMO or real hardware) |
+| `preprocessing.py` | Filters: bandpass, notch 50 Hz, CAR |
+| `cca.py` | Sinusoidal reference signal + CCA classification |
+| `voting.py` | Majority Voting procedure to reduce false positives |
+| `server.py` | Handler WebSocket and launch of server |
+| `flicker.js` | Key flickering at SSVEP exact frequencies |
+| `websocket.js` | Conection/re-conection of the WebSocket, simulated sent key |
+| `ui.js` | The DOM management and manipulation (baras, scores, buffer, …) |
+| `app.js` | Entry main point that launches the flickering and the websocket communication |
