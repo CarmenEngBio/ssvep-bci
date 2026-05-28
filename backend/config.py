@@ -3,7 +3,7 @@
 #  All the system adjustments are placed here.
  
 # Selection of the execution MODE
-MODE        = "DEMO"   # "DEMO" | "HARDWARE"
+MODE        = "HARDWARE"   # "DEMO" | "HARDWARE"
 SERIAL_PORT = "COM5"   # It matters if MODE = "HARDWARE"
                        # To see the port: Device Manager → Ports → COMx
  
