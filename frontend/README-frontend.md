@@ -41,7 +41,7 @@
 
 ---
  # **JS Files**
- ---
+
  # App.js 
  - Main JavaScript code is displayed here in order to call other js.
  - This JavaScript will be the entry point regarding the communication pathway (WS) with the frontend.
