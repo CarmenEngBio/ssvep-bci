@@ -10,15 +10,15 @@
 
  # HTML - index.html
   1. There is showed first an instructions menu.
-    - It appears when loading the website. Closes with button. 
-    - Blinking is not been noticeable till the subject closes the menu and focuses on screen (keypad).
+     - It appears when loading the website. Closes with button. 
+     - Blinking is not been noticeable till the subject closes the menu and focuses on screen (keypad).
   2. Aferwards it is displayed the main User Interface.
 
  ---
  # CSS - Styles.css 
   The following design decisions are strongly supported by literature: 
   1. Blinking occurs just on numbers and not on the full cell. This event avoids a huge flickering surface inducing less visual fatigue.
-  - Reference: ***Dehais*** et al. 2022 (low modulation amplitude without accuracy penalty).
+      - Reference: ***Dehais*** et al. 2022 (low modulation amplitude without accuracy penalty).
   2. Smaller cells and more separated, inspired ideally in ***Cheng*** dimensions et al. 2002 (2×2.7 cm, gap 4 cm).
   3. Greys colours used; not bright or strong colours to avoid confusion.
   4. Prediction is showed up as a subtle border instead of previous version that used a bright pink tone. 
