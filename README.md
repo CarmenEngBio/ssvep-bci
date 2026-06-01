@@ -71,9 +71,9 @@ ssvep-fase1/
 ```
 ssvep-fase1/
 ├── backend/
-│   ├── config.py          ← parámeters are declared here
+│   ├── config.py          ← parameters are declared here
 │   ├── eegsources.py      ← DemoEEG + CytonEEG
-│   ├── preprocessing.py   ← bandpass · notch · CAR
+│   ├── preprocessing.py   ← bandpass + notch + CAR
 │   ├── cca.py             ← reference signal + CCA classifier
 │   ├── voting.py          ← temporal majority voting algorithm
 │   └── server.py          ← WebSocket + main (entry endpoint)
@@ -94,13 +94,13 @@ ssvep-fase1/
  
 | File | Functionality |
 |---|---|
-| `config.py` | System paremeters (FS, window, frequencies, thresholds, …) |
-| `eegsources.py` | Abstraction of EGG source (DEMO or real hardware) |
+| `config.py` | System paremeters (fs, window, frequencies, thresholds, …) |
+| `eegsources.py` | Abstraction of EGG source (DEMO or real HARDWARE) |
 | `preprocessing.py` | Filters: bandpass, notch 50 Hz, CAR |
 | `cca.py` | Sinusoidal reference signal + CCA classification |
-| `voting.py` | Majority Voting procedure to reduce false positives |
+| `voting.py` | Majority voting procedure to reduce false positives |
 | `server.py` | Handler WebSocket and launch of server |
 | `flicker.js` | Key flickering at SSVEP exact frequencies |
-| `websocket.js` | Conection/re-conection of the WebSocket, simulated sent key |
+| `websocket.js` | Connection/re-connection of the WebSocket / simulated sent key |
 | `ui.js` | The DOM management and manipulation (bars, scores, buffer, …) |
 | `app.js` | Entry main point that launches the flickering and the websocket communication |

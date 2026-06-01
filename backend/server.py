@@ -1,17 +1,3 @@
-"""
-server.py  —  SSVEP BCI · Phase 1
----------------------------------
-Entry point of the backend. It just contains:
-  · the WebSocket handler (recieves messages from navigator, sends predictions)
-  · main() that launches the server 
- 
-All the specified parameters are declared & initialised at config.py.
-The signal logics is split among the specialised modules.
- 
-Execute:  python server.py
-Requires:  pip install websockets numpy scipy scikit-learn
-           pip install brainflow   ← if MODE = "HARDWARE"
-"""
  
 import asyncio
 import json
@@ -28,13 +14,7 @@ from voting        import Voter
  
 #   Handler WebSocket 
 async def handler(ws, source):
-    """
-    Manages the connection with a client (website / browser ).
- 
-    · Listens to incoming messages to change the simulated key (mode DEMO).
-    · Each 0.5 s: acquires window → preprocess → classification → vote → send.
-    · Includes quality signal metrics (variance level at O1 / O2).
-    """
+    
     print(f"✓ Client connected: {ws.remote_address}")
     voter = Voter()
  
@@ -55,7 +35,7 @@ async def handler(ws, source):
             label, conf, scores  = classify_window(clean)
             voted                = voter.vote(label)
  
-            #   Signal quality: variance of O1, O2 (µV²)
+            #   Signal quality 
             occ_var = float(np.mean(np.var(raw_eeg[-2:], axis=1)))
  
             await ws.send(json.dumps({
