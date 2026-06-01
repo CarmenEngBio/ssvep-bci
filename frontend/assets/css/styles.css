@@ -75,7 +75,7 @@ h1 { font-size: 1.2rem; color: #aaa; letter-spacing: .1em; font-weight: 400; }
 #keypad {
   display: grid;
   grid-template-columns: repeat(3, 100px);
-  gap: 300px;   /* wide separation as Cheng 2002  --> 20 px*/
+  gap: 500px;   /* wide separation as Cheng 2002  --> 20 px*/
 }
  
 .key {
