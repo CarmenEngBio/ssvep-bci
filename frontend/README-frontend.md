@@ -23,7 +23,7 @@
   3. Greys colours used; not bright or strong colours to avoid confusion.
   4. Prediction is showed up as a subtle border instead of previous version that used a bright pink tone. 
 
- ## Numerical Keypad
+ ## NUMERICAL KEYPAD 
   - It is inspired regarding dimensionality from ***Cheng et al. 2002***: buttons 2×2.7 cm, horizontal 4 cm separation / 4.5 cm vertical.
   - Should enough wide separation is guaranteed to reduce visual interference between adyancent stimuli. Consider that the cell space and sizes depends as well on the dimension of the used PC / LAPTOP screen.
 
@@ -31,8 +31,8 @@
   - It just changes the text color, in this case numbers, not the complete cell.
   - `ON STATE` → bright white number.
   - `OFF STATE` → dark grey number (nearly noticeable).
-  - The cells (#222) remains static, which means that only the numbers flicker and less visual fatigue will be presented.
-  - Action keys (RESET, ENTER) do not blink, just remain off for the moment. 
+  - The cells `(#222)` remains static, which means that only the numbers flicker and less visual fatigue will be presented.
+  - Action keys `(RESET, ENTER)` do not blink, just remain off for the moment. 
   - Reference: ***Dehais et al. 2022**, where it is reduced the contrast depth.
 
  ## PREDICTION
