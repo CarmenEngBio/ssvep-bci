@@ -74,13 +74,13 @@ h1 { font-size: 1.2rem; color: #aaa; letter-spacing: .1em; font-weight: 400; }
 /* Numerical Keypad */
 #keypad {
   display: grid;
-  grid-template-columns: repeat(3, 300px);
-  gap: 200px;   /* wide separation as Cheng 2002  --> 20 px*/
+  grid-template-columns: repeat(3, 100px);
+  gap: 300px;   /* wide separation as Cheng 2002  --> 20 px*/
 }
  
 .key {
-  width: 300px;
-  height: 300px;
+  width: 100px;
+  height: 100px;
   background: #222;
   border: 1px solid #3a3a3a;
   border-radius: 8px;
