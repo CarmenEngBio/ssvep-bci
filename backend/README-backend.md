@@ -17,8 +17,8 @@
 
  It is the entry point of the backend. It just contains:
 
-  · The **WebSocket handler**: it receives the messages from the navigator and sends the predictions.
-  · The **main()** function launches the server. 
+  - The **WebSocket handler**: it receives the messages from the navigator and sends the predictions.
+  - The **main()** function launches the server. 
  
  All the specified parameters are declared and initialised at the `config.py` file.
  The signal logics is split among the different specialised modules.
@@ -35,10 +35,10 @@
 
  Manages the **connection** with a **client** (website / browser ).
  
- · It listens to incoming messages to change the simulated key if the `mode = DEMO`. 
- · Each 0.5 s it applies the **window** of the signal, then it **preprocess** the signal, it applies the **classification** 
+ - It listens to incoming messages to change the simulated key if the `mode = DEMO`. 
+ - Each 0.5 s it applies the **window** of the signal, then it **preprocess** the signal, it applies the **classification** 
    process, then the **voting** procedure and lasting the data is **sent**.
- · It includes the **quality signal** metrics through **variance** levels (µV²) at electrodes **O1** / **O2**.
+ - It includes the **quality signal** metrics through **variance** levels (µV²) at electrodes **O1** / **O2**.
 
 ---
 
