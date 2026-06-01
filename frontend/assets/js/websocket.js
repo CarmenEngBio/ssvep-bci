@@ -1,8 +1,4 @@
 
-// WEBSOCKET - Where Python server connection is established
-
-//  Manages the WebSocket connection and automatic re-attempting connection.
-//  Has dependencies with the ui.js (setConnectionStatus, updateUI).
  
 var WS_URL   = 'ws://localhost:8765';
 var RETRY_MS = 2000;

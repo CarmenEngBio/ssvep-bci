@@ -1,7 +1,4 @@
 
-// FLICKER ENGINE SSVEP
-//  Each number flickers at its frequency by calling the requestAnimationFrame for temporal accuracy
-//  The frequencies are read from the data-freq attribute taken from the DOM.
  
 function initFlicker() {
   const flickerKeys = Array.from(document.querySelectorAll('.key[data-freq]'))

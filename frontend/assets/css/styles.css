@@ -1,16 +1,4 @@
 
-/* styles.css SSVEP BCI
-   
-   DESIGN DECISIONS (supported by literature): 
-   · Blinking just on numbers and not on the full cell. 
-     This event avoids a huge flickering surface inducing less visual fatigue.
-     Reference: Dehais et al. 2022 (low modulation amplitude improving UX without accuracy penalty).
-   · Smaller cells and more separated, inspired in Cheng dimensions 
-     et al. 2002 (2×2.7 cm, gap 4 cm).
-   · Greys colours used; not bright or strong colours to avoid confusion.
-   · Prediction: is showed up as a subtle border instead of previous pink tone 
-
- */
  
 * { box-sizing: border-box; margin: 0; padding: 0; }
  
@@ -84,21 +72,16 @@ h1 { font-size: 1.2rem; color: #aaa; letter-spacing: .1em; font-weight: 400; }
 #bar-qual { background: #e6a817; }
  
 /* Numerical Keypad */
-/*
-  Inspired Dimensionality from Cheng et al. 2002:
-  buttons 2×2.7 cm, horizontal 4 cm separation / 4.5 cm vertical.
-  Enough wide separation is guaranteed to reduce visual interference 
-  between adyancent stimuli.
-*/
+
 #keypad {
   display: grid;
-  grid-template-columns: repeat(3, 80px);
-  gap: 20px;   /* wide separation as Cheng 2002 */
+  grid-template-columns: repeat(3, 96px);
+  gap: 80px;   /* wide separation as Cheng 2002  --> 20 px*/
 }
  
 .key {
-  width: 80px;
-  height: 80px;
+  width: 96px;
+  height: 96px;
   background: #222;
   border: 1px solid #3a3a3a;
   border-radius: 8px;
@@ -120,11 +103,7 @@ h1 { font-size: 1.2rem; color: #aaa; letter-spacing: .1em; font-weight: 400; }
 }
  
 /*
-  BLINKING: just changes the text color (numbers), not the complete cell
-  ON STATE → bright white number
-  OFF STATE → dark grey number (nearly noticeable)  
-  The cell (#222) remains static → less visual fatigue will be presented
-  Reference: Dehais et al. 2022 — reduces the contrast depth.
+  BLINKING
 */
 .key.on  { color: #f0f0f0; }
 .key.on small { color: #666; }
@@ -132,8 +111,7 @@ h1 { font-size: 1.2rem; color: #aaa; letter-spacing: .1em; font-weight: 400; }
 .key.off small { color: #333; }
  
 /*
-  PREDICTION: slight bright border, without highlighting 
-  Informs the engineer/doctor without distracting the subject
+  PREDICTION
 */
 .key.predicted {
   border-color: #888 !important;

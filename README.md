@@ -90,7 +90,7 @@ ssvep-fase1/
             └── ui.js          ← update of DOM
 ```
  
-### Modules Functionalities
+## Modules Functionalities
  
 | File | Functionality |
 |---|---|

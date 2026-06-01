@@ -1,7 +1,4 @@
 
-// UI --> INTERFACE UPDATE 
-//  Contains the functions related with the DOM
-//  Does not have any relationship with the flickering or with the WebSocket
  
 var buffer = '';   
  

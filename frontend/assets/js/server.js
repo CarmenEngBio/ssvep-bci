@@ -1,5 +1,5 @@
 
-// ── FLICKER ENGINE ──────────────────────────────────────
+// FLICKER ENGINE
 const flickerKeys = Array.from(document.querySelectorAll('.key[data-freq]'))
   .filter(el => parseFloat(el.dataset.freq) > 0)
   .map(el => ({
@@ -26,7 +26,7 @@ function flicker(ts) {
 }
 requestAnimationFrame(flicker);
 
-// ── WEBSOCKET ───────────────────────────────────────────
+// WEBSOCKET
 let buffer = '';
 let socket = null;   // ← variable global accesible por sendTarget
 
@@ -50,14 +50,14 @@ function connect() {
   socket.onmessage = e => updateUI(JSON.parse(e.data));
 }
 
-// ── ENVIAR TECLA AL SERVIDOR ────────────────────────────
+// ENVIAR TECLA AL SERVIDOR
 function sendTarget(key) {
   if (socket && socket.readyState === WebSocket.OPEN) {
     socket.send(JSON.stringify({ type: 'set_target', key: key }));
   }
 }
 
-// ── UI UPDATE ───────────────────────────────────────────
+// UI UPDATE
 function updateUI(msg) {
   const label = msg.label;
   const conf  = msg.confidence || 0;

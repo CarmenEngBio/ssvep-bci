@@ -48,17 +48,17 @@
 
  For this module:
  1. Selection of the execution MODE:
-    ```python
-    MODE        = "HARDWARE"   # "DEMO" | "HARDWARE"
-    SERIAL_PORT = "COM5"   # It matters if MODE = "HARDWARE" # To see the port: Device Manager → Ports → COMx
-    ```
+```python
+MODE        = "HARDWARE"   # "DEMO" | "HARDWARE"
+SERIAL_PORT = "COM5"   # It matters if MODE = "HARDWARE" # To see the port: Device Manager → Ports → COMx
+```
  2. Acquisition Hardware
  ```python
     FS         = 250   # Cyton fs is around 250 Hz
     N_CHANNELS = 8     # Fp1 Fp2 C3 C4 P7 P8 O1 O2
  ```
  3. Classification Window
- - **TRADEOFF**: the more seconds, the better is the accuracy and worst the ITR
+ - **TRADEOFF**: the more seconds, the better is the accuracy and worst the ITR.
  - The typical literature values are between 1–4 s.
  ```python
     WINDOW_SEC = 2
