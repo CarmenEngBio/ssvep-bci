@@ -47,17 +47,15 @@
  - This JavaScript will be the entry point regarding the communication pathway (WS) with the frontend.
  - It also calls the flicker engine as well as the WebSocket connection.
 
----
  # Flicker.js
  - It is based on the flicker engine module following the SSVEP paradigm.
  - Each number flickers at its frequency by calling the requestAnimationFrame for temporal accuracy; considering as well the screen refresh rate.
  - The frequencies are read from the `data-freq` attribute taken from the **DOM**.
 
----
  # Ui.js
  - Contains the functions related with the **DOM** (css).
  - Does not have any relationship with the flickering or with the WebSocket.
----
+
  # Websocket.js
  - This module is where the Python server connection is established.
  - It manages the WebSocket connection and automatic re-attempting connection.
