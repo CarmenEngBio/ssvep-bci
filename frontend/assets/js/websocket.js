@@ -1,5 +1,4 @@
 
- 
 var WS_URL   = 'ws://localhost:8765';
 var RETRY_MS = 2000;
  

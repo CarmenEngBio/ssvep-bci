@@ -72,16 +72,15 @@ h1 { font-size: 1.2rem; color: #aaa; letter-spacing: .1em; font-weight: 400; }
 #bar-qual { background: #e6a817; }
  
 /* Numerical Keypad */
-
 #keypad {
   display: grid;
-  grid-template-columns: repeat(3, 96px);
-  gap: 80px;   /* wide separation as Cheng 2002  --> 20 px*/
+  grid-template-columns: repeat(3, 100px);
+  gap: 100px;   /* wide separation as Cheng 2002  --> 20 px*/
 }
  
 .key {
-  width: 96px;
-  height: 96px;
+  width: 100px;
+  height: 100px;
   background: #222;
   border: 1px solid #3a3a3a;
   border-radius: 8px;
@@ -102,23 +101,19 @@ h1 { font-size: 1.2rem; color: #aaa; letter-spacing: .1em; font-weight: 400; }
   margin-top: 4px;
 }
  
-/*
-  BLINKING
-*/
+/* BLINKING */
 .key.on  { color: #f0f0f0; }
 .key.on small { color: #666; }
 .key.off { color: #2a2a2a; }
 .key.off small { color: #333; }
  
-/*
-  PREDICTION
-*/
+/* PREDICTION */
 .key.predicted {
   border-color: #888 !important;
   border-width: 2px !important;
 }
  
-/* Action keys (RESET, ENTER) - no blinking, just remain off */
+/* Action keys (RESET, ENTER) */
 .key.action {
   font-size: .9rem;
   color: #444;

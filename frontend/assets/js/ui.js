@@ -42,8 +42,9 @@ function updateUI(msg) {
     if (el) el.classList.add('predicted');
   }
  
+  var MAX_DIGITS = 11; // 11 maximum digits according to Cheng paper!
   if (label === 'RESET')              buffer = '';
-  else if (label && label !== 'ENTER') buffer += label;
+  else if (label && label !== 'ENTER' && buffer.length < MAX_DIGITS) buffer += label;
   document.getElementById('buffer').textContent = buffer || '—';
  
   if (msg.scores) renderScores(msg.scores, label);
