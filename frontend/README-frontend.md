@@ -33,14 +33,14 @@
   - `OFF STATE` → dark grey number (nearly noticeable).
   - The cells `(#222)` remains static, which means that only the numbers flicker and less visual fatigue will be presented.
   - Action keys `(RESET, ENTER)` do not blink, just remain off for the moment. 
-  - Reference: ***Dehais et al. 2022**, where it is reduced the contrast depth.
+  - Reference: ***Dehais et al. 2022***, where it is reduced the contrast depth.
 
  ## PREDICTION
   - There is a slight bright border, without a lot of highlighting.
   - Informs the engineer/doctor without distracting the subject.
 
 ---
- # JS Files
+ # **JS Files**
  ---
  # App.js 
  - Main JavaScript code is displayed here in order to call other js.
