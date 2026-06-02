@@ -72,10 +72,22 @@ h1 { font-size: 1.2rem; color: #aaa; letter-spacing: .1em; font-weight: 400; }
 #bar-qual { background: #e6a817; }
  
 /* Numerical Keypad */
+/*
 #keypad {
   display: grid;
   grid-template-columns: repeat(3, 100px);
-  gap: 200px;   /* wide separation as Cheng 2002  --> 20 px*/
+  gap: 200px;   // wide separation as Cheng 2002  --> 20 px
+}
+*/
+
+#keypad {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-template-rows: repeat(4, 100px);
+  justify-content: space-between;
+  align-content: space-between;
+  width: 90vw;
+  height: 70vh;
 }
  
 .key {
