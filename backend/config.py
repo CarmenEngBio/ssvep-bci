@@ -9,7 +9,7 @@ FS         = 250
 N_CHANNELS = 8     
  
 # Classification Window
-WINDOW_SEC = 2
+WINDOW_SEC = 4
 WINDOW     = FS * WINDOW_SEC
  
 #   Filtering 
