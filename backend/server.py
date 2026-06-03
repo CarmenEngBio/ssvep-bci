@@ -22,8 +22,8 @@ async def handler(ws, source):
         while True:
             #   Incoming Messages
             try:
-                raw = await asyncio.wait_for(ws.recv(), timeout=0.01)
-                msg = json.loads(raw)
+                raw = await asyncio.wait_for(ws.recv(), timeout=0.01) # el timeout es suficiente o debe ser más grande?
+                msg = json.loads(raw) #parsear los datos a JSON es buena estrategia?creo q si son: scores, confianza, eeg signal
                 if msg.get("type") == "set_target" and MODE == "DEMO":
                     source.set_target(str(msg["key"]))
             except (asyncio.TimeoutError, json.JSONDecodeError):

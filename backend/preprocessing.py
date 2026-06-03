@@ -1,4 +1,20 @@
 
+"""
+ Como la señal recogida contiene mucho rúido por tener un valor en µV² muy grande ~ 26111, se podrían implementar estos 
+ métodos ligados a Brainflow que sirven de filtrado, para eliminar ventanas muy ruidosas:
+ 
+ from brainflow.data_filter import DataFilter, FilterTypes, NoiseTypes
+
+ for channel in eeg_channels:
+    
+    DataFilter.perform_bandpass(data[channel], sampling_rate, 
+                                 1.0, 40.0,   # frecuencia baja, frecuencia alta
+                                 4,            # orden del filtro
+                                 FilterTypes.BUTTERWORTH, 0)
+    
+    DataFilter.remove_environmental_noise(data[channel], sampling_rate, 
+                                           NoiseTypes.FIFTY) 
+"""
  
 import numpy as np
 from scipy.signal import butter, filtfilt

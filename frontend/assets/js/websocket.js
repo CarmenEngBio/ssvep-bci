@@ -1,6 +1,6 @@
 
 var WS_URL   = 'ws://localhost:8765';
-var RETRY_MS = 2000;
+var RETRY_MS = 2000; //Será este tiempo en valor más óptimo para el WebSocket?  
  
 var socket = null;
  

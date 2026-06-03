@@ -19,7 +19,7 @@ class DemoEEG:
         chs  = []
  
         for i in range(N_CHANNELS):
-            amp = 1.5 if i >= 6 else 0.4   # O1, O2 highest amplitudes
+            amp = 1.5 if i >= 6 else 0.4   # O1, O2 highest amplitudes --> porque estos valores?
             sig = (
                 amp       * np.sin(2 * np.pi *     freq * t)
               + amp * 0.5 * np.sin(2 * np.pi * 2 * freq * t)
@@ -43,6 +43,8 @@ class CytonEEG:
         self.board   = BoardShim(BoardIds.CYTON_BOARD.value, params)
         all_eeg      = BoardShim.get_eeg_channels(BoardIds.CYTON_BOARD.value)
         self.eeg_chs = all_eeg[:N_CHANNELS]
+        #Este comando es típico de BrainFlow --> investigar porqué no se implementa
+        #sampling_rate = BoardShim.get_sampling_rate(BoardIds.CYTON_BOARD)  # devuelve 250
  
         self.board.prepare_session()
         self.board.start_stream()
@@ -50,7 +52,7 @@ class CytonEEG:
  
     def get_window(self) -> np.ndarray:
         
-        data = self.board.get_current_board_data(WINDOW)
+        data = self.board.get_current_board_data(WINDOW) # creo que es porque aqui ya se incluye la FS
         eeg  = np.array([data[ch] for ch in self.eeg_chs])
  
         if eeg.shape[1] < WINDOW:
