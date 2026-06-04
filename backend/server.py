@@ -36,6 +36,7 @@ async def handler(ws, source):
             occ_var = float(np.mean(np.var(raw_eeg[-2:], axis=1)))
             
             # Nuevo filtrado en preprocesamiento para mejorar el clasificador y seleccionar mejor los digitos
+            """
             if is_noisy(raw_eeg):
                 await ws.send(json.dumps({
                     "mode": MODE, "label": None, "label_raw": None,
@@ -43,6 +44,7 @@ async def handler(ws, source):
                 }))
                 await asyncio.sleep(0.5)
                 continue
+            """
  
             clean               = preprocess(raw_eeg)
             label, conf, scores = classify_window(clean)
