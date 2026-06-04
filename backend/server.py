@@ -7,7 +7,8 @@ import websockets
  
 from config        import MODE, WINDOW_SEC, N_HARMONICS, CONFIDENCE_THRESHOLD, N_VOTES
 from eegsources    import build_source
-from preprocessing import preprocess, is_noisy
+# from preprocessing import preprocess, is_noisy
+from preprocessing import preprocess
 from cca           import classify_window
 from voting        import Voter
  

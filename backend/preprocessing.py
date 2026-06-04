@@ -51,7 +51,9 @@ def preprocess(eeg: np.ndarray) -> np.ndarray:
 # Se añade función de filtrado de ruído para recoger una señal más nítida
 # Rechaza las ventanas con ruido excesivo en O1/O2
 # Valor normal en EEG: 10-100 µV² — electrodos secos pueden superar 500 µV²
+"""
 def is_noisy(eeg: np.ndarray, threshold: float = 500) -> bool:
     occ_var = float(np.mean(np.var(eeg[-2:], axis=1)))
     return occ_var > threshold
+"""
  
