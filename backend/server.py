@@ -31,9 +31,19 @@ async def handler(ws, source):
  
             #   Classification Pipeline
             raw_eeg              = source.get_window()
-            clean                = preprocess(raw_eeg)
-            label, conf, scores  = classify_window(clean)
-            voted                = voter.vote(label)
+            
+            # Nuevo filtrado en preprocesamiento para mejorar el clasificador y seleccionar mejor los digitos
+            if is_noisy(raw_eeg):
+                await ws.send(json.dumps({
+                    "mode": MODE, "label": None, "label_raw": None,
+                    "confidence": 0, "scores": {}, "signal_quality": round(float(np.mean(np.var(raw_eeg[-2:], axis=1))), 2)
+                }))
+                await asyncio.sleep(0.5)
+                continue
+ 
+            clean               = preprocess(raw_eeg)
+            label, conf, scores = classify_window(clean)
+            voted               = voter.vote(label)
  
             #   Signal quality 
             occ_var = float(np.mean(np.var(raw_eeg[-2:], axis=1)))

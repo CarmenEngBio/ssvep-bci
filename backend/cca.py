@@ -18,7 +18,8 @@ def ref_signal(freq: float) -> np.ndarray:
  
 #  Classification per window
 def classify_window(eeg: np.ndarray) -> tuple[str | None, float, dict]:
-    X      = eeg.T   # (WINDOW, N_CHANNELS)
+    # X      = eeg.T   # (WINDOW, N_CHANNELS)
+    X = eeg[-2:].T   # antes: eeg.T (8 canales) → ahora solo O1, O2 (occipitales) para ver si clasifica mejor la señal
     scores = {}
  
     for label, freq in FREQS.items():
