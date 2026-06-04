@@ -29,8 +29,8 @@ N_HARMONICS  = 3
 N_COMPONENTS = 1   
  
 #  Confidence threshold
-CONFIDENCE_THRESHOLD = 0.25
-#CONFIDENCE_THRESHOLD = 0.35
+#CONFIDENCE_THRESHOLD = 0.25 #El problema no era esto, sino que se ha acabado la batería de la placa.
+CONFIDENCE_THRESHOLD = 0.35
  
 #  Temporal Voting 
 N_VOTES = 2
