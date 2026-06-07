@@ -19,9 +19,12 @@
 import numpy as np
 from scipy.signal import butter, filtfilt
  
-from config import FS, BP_LOW, BP_HIGH, NOTCH_FREQ, FILTER_ORDER
+from config import FS, BP_LOW, BP_HIGH, NOTCH_FREQ, FILTER_ORDER, NOISE_THRESHOLD_VAR, NOISE_THRESHOLD_ABS
  
- 
+# Existen librerías de BrainFlow para el filtrado notch y pasabanda, pero si se introducen y en el futuro se usa otro tipo
+# de adquisicion no sería modular y escalable. Ademas, no se podria ejecutar correctamente el modo DEMO, por ello es mejor
+# mantener la limpieza y filtrado en scipy que es más general que adaptarlo a las funciones de BrainFlow.
+
 #  Filters Design 
 def _butter_coeffs(low: float, high: float, btype: str):
     nyq  = FS / 2
@@ -49,11 +52,18 @@ def preprocess(eeg: np.ndarray) -> np.ndarray:
     return car(filtered)
 
 # Se añade función de filtrado de ruído para recoger una señal más nítida
-# Rechaza las ventanas con ruido excesivo en O1/O2
+# Rechaza las ventanas con ruido excesivo en los 8 canales, consistente con CCA
 # Valor normal en EEG: 10-100 µV² — electrodos secos pueden superar 500 µV²
-"""
-def is_noisy(eeg: np.ndarray, threshold: float = 500) -> bool:
-    occ_var = float(np.mean(np.var(eeg[-2:], axis=1)))
-    return occ_var > threshold
-"""
+
+def is_noisy(eeg):
+    # Criterio 1: varianza en todos canales por si se excede umbral
+    # filtra amplitud de toda la ventana
+    mean_var = float(np.mean(np.var(eeg, axis=1)))
+    if mean_var > NOISE_THRESHOLD_VAR:
+        return True
+    # Criterio 2: muestra en un canal que excede umbral absoluto
+    # filtra picos de ruido puntuales
+    if np.any(np.abs(eeg) > NOISE_THRESHOLD_ABS):
+        return True
+    return False
  

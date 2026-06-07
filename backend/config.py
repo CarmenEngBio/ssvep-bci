@@ -12,13 +12,22 @@ N_CHANNELS = 8
 # Classification Window
 WINDOW_SEC = 4
 WINDOW     = FS * WINDOW_SEC
+
+# Umbrales de limpieza - Debido a la introducción de ruído en la señal de entrada por usar electrodos secos 
+NOISE_THRESHOLD_VAR = 50000  # µV² 
+NOISE_THRESHOLD_ABS = 1000    # µV
  
 #   Filtering 
 BP_LOW       = 6.0    # Hz
 BP_HIGH      = 40.0   # Hz
 NOTCH_FREQ   = 50.0   # Hz (Power Line Interference EU~50 Hz)
 FILTER_ORDER = 4
- 
+
+#  Cooldown despues de confirmar la seleccion
+COOLDOWN_SEC = 2.0 
+#segundos de espera despues de q un digito se ha confirmado antes de aceptar un nuevo input
+#previene de falsos positivos entre selecicones de digitos consecutivas
+
 #   Stimuli Frequencies 
 FREQS = {
     "0": 8.0,  "1": 8.5,  "2": 9.0,  "3": 9.5,  "4": 10.0,

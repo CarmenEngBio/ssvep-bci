@@ -53,6 +53,7 @@ class CytonEEG:
     def get_window(self) -> np.ndarray:
         
         data = self.board.get_current_board_data(WINDOW) # creo que es porque aqui ya se incluye la FS
+        # A traves de esa funcion propia de BrainFlow internammente se realiza la conversion ADC a µV² 
         eeg  = np.array([data[ch] for ch in self.eeg_chs])
  
         if eeg.shape[1] < WINDOW:

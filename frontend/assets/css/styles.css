@@ -166,7 +166,7 @@ h1 { font-size: 1.2rem; color: #aaa; letter-spacing: .1em; font-weight: 400; }
   font-size: .8rem;
 }
  
-/* CCA Scores CCA */
+/* CCA Scores */
 #scores {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -257,4 +257,11 @@ h1 { font-size: 1.2rem; color: #aaa; letter-spacing: .1em; font-weight: 400; }
 #modal-close:hover {
   background: #383838;
   border-color: #666;
+}
+
+/* Cooldown indicator */
+#cooldown-status {
+  font-size: .78rem;
+  color: #e6a817;
+  letter-spacing: .03em;
 }
