@@ -35,6 +35,11 @@ async def handler(ws, source):
             #   Acquisition
             raw_eeg              = source.get_window()
 
+            # PARA DEBUGGEAR Y ENCONTRAR EL ORIGEN DEL FALLO
+            var_per_channel = np.var(raw_eeg, axis=1)
+p           rint(f"VAR por canal: {np.round(var_per_channel, 1)}")
+
+
             #   Signal quality 
             occ_var = float(np.mean(np.var(raw_eeg[-2:], axis=1))) 
             # Aqui es el sitio donde se calcula la varianza estadistica de O1 y O2 en µV². 
