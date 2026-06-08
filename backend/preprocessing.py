@@ -54,7 +54,7 @@ def preprocess(eeg: np.ndarray) -> np.ndarray:
 # Se añade función de filtrado de ruído para recoger una señal más nítida
 # Rechaza las ventanas con ruido excesivo en los 8 canales, consistente con CCA
 # Valor normal en EEG: 10-100 µV² — electrodos secos pueden superar 500 µV²
-
+"""
 def is_noisy(eeg):
     # Criterio 1: varianza en todos canales por si se excede umbral
     # filtra amplitud de toda la ventana
@@ -66,4 +66,5 @@ def is_noisy(eeg):
     if np.any(np.abs(eeg) > NOISE_THRESHOLD_ABS):
         return True
     return False
+"""
  
