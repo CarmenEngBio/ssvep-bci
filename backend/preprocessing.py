@@ -67,4 +67,13 @@ def is_noisy(eeg):
         return True
     return False
 """
+def is_noisy(eeg): 
+    # Evaluando solo los canales relevantes para el SSVEP 5-8: P7, P8, O1 y O2).
+    occ = eeg[4:8]   # indices 4,5,6,7 → CH5,CH6,CH7,CH8
+    mean_var = float(np.mean(np.var(occ, axis=1)))
+    if mean_var > NOISE_THRESHOLD_VAR:
+        return True
+    if np.any(np.abs(occ) > NOISE_THRESHOLD_ABS):
+        return True
+    return False
  

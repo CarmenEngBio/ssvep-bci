@@ -14,8 +14,10 @@ WINDOW_SEC = 4
 WINDOW     = FS * WINDOW_SEC
 
 # Umbrales de limpieza - Debido a la introducción de ruído en la señal de entrada por usar electrodos secos 
-NOISE_THRESHOLD_VAR = 50000  # µV² 
-NOISE_THRESHOLD_ABS = 1000    # µV
+# NOISE_THRESHOLD_VAR = 50000  # µV² 
+# NOISE_THRESHOLD_ABS = 1000    # µV
+NOISE_THRESHOLD_VAR = 150000   # µV² por encima del reposo (~50k)
+NOISE_THRESHOLD_ABS = 1500     # µV por encima de picos habituales
  
 #   Filtering 
 BP_LOW       = 6.0    # Hz
