@@ -37,7 +37,7 @@ async def handler(ws, source):
 
             # PARA DEBUGGEAR Y ENCONTRAR EL ORIGEN DEL FALLO
             var_per_channel = np.var(raw_eeg, axis=1)
-p           rint(f"VAR por canal: {np.round(var_per_channel, 1)}")
+            print(f"VAR por canal: {np.round(var_per_channel, 1)}")
 
 
             #   Signal quality 
