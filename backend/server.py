@@ -45,7 +45,7 @@ async def handler(ws, source):
             # Aqui es el sitio donde se calcula la varianza estadistica de O1 y O2 en µV². 
             
             # Nuevo filtrado en preprocesamiento para mejorar el clasificador y seleccionar mejor los digitos
-            
+            """
             if is_noisy(raw_eeg):
                 await ws.send(json.dumps({
                     "mode": MODE, 
@@ -57,7 +57,8 @@ async def handler(ws, source):
                 }))
                 await asyncio.sleep(0.5)
                 continue
-
+            """
+            
             in_cooldown = (time.time() - last_confirm) < COOLDOWN_SEC
             
             clean               = preprocess(raw_eeg)
