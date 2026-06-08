@@ -1,7 +1,7 @@
  
 import asyncio
 import json
- 
+import time  
 import numpy as np
 import websockets
  
@@ -58,7 +58,7 @@ async def handler(ws, source):
                 await asyncio.sleep(0.5)
                 continue
             """
-            
+
             in_cooldown = (time.time() - last_confirm) < COOLDOWN_SEC
             
             clean               = preprocess(raw_eeg)
