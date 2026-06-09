@@ -26,6 +26,8 @@ function connect() {
   };
  
   socket.onmessage = function(e) {
-    updateUI(JSON.parse(e.data));
+    const msg = JSON.parse(e.data);
+    handleRecordingMessage(msg);
+    updateUI(msg);
   };
 }

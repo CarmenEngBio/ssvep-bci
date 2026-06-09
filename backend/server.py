@@ -11,7 +11,10 @@ from eegsources    import build_source
 from preprocessing import preprocess
 from cca           import classify_window
 from voting        import Voter
- 
+from recorder import EEGRecorder
+
+recorder = EEGRecorder()
+LOOP_STEP = int(0.5*250) # indica el numero de muestras nuevas por iteracion (+- 125) 
  
 #   Handler WebSocket 
 async def handler(ws, source):
@@ -26,8 +29,19 @@ async def handler(ws, source):
             try:
                 raw = await asyncio.wait_for(ws.recv(), timeout=0.01) # el timeout es suficiente o debe ser más grande?
                 msg = json.loads(raw) #parsear los datos a JSON es buena estrategia?creo q si son: scores, confianza, eeg signal
+                msg_type = msg.get("type")
+
                 if msg.get("type") == "set_target" and MODE == "DEMO":
                     source.set_target(str(msg["key"]))
+                elif msg_type == "start_recording":
+                    fname = recorder.start(msg.get("label", "session"))
+                    await ws.send(json.dumps({"type": "recording_started", "file": fname or ""}))
+                elif msg_type == "stop_recording":
+                    recorder.stop()
+                    await ws.send(json.dumps({"type": "recprding_stopped"}))
+                elif msg_type == "set_marker":
+                    recorder.set_marker(float(msg.get("value", 0)))
+
             except (asyncio.TimeoutError, json.JSONDecodeError):
                 pass
  
@@ -35,9 +49,15 @@ async def handler(ws, source):
             #   Acquisition
             raw_eeg              = source.get_window()
 
+            if recorder.is_recording:                                
+                t_now   = time.time()
+                chunk   = raw_eeg[:, -LOOP_STEP:] # últimas ~125 muestras (no solapadas)
+                ts_chunk = np.linspace(t_now - 0.5, t_now, LOOP_STEP, endpoint=False)
+                recorder.write_chunk(chunk, ts_chunk)
+
             # PARA DEBUGGEAR Y ENCONTRAR EL ORIGEN DEL FALLO
             var_per_channel = np.var(raw_eeg, axis=1)
-            print(f"VAR por canal: {np.round(var_per_channel, 1)}")
+            # print(f"VAR por canal: {np.round(var_per_channel, 1)}")
 
 
             #   Signal quality 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es"> <!--No sería ingles?-->
+<html lang="en"> 
 <head>
   <meta charset="UTF-8">
   <title>SSVEP BCI — Phase 1</title>
@@ -13,13 +13,14 @@
       <h2>Instructions</h2>
       <ol>
         <li>Sit down comfortable in front of the screen please, <strong>around 40 cm</strong> of distance.</li>
-        <li>Each number will flicker or blink at a certain frequency value (8–12.5 Hz).</li>
+        <li>Each number will flicker or blink at a certain frequency value <em>(8–12.5 Hz)</em>.</li>
         <li><strong>Focus your sight</strong> on the desired number.</li>
         <li>Mantain your sight fixed till the number displayed is highlighted.</li>
         <li>If the selection is incorrect, just look onto <strong>↺ RESET</strong> to delete.</li>
         <li>If you have completed the whole desired sequence, focus on <strong>✓ ENTER</strong>.</li>
       </ol>
-      <p class="modal-note"> WARNING: If you experience dizzyness or you are uncomfortable at some point, close your eyes and rest please.</p>
+      <p class="modal-note"> <strong>WARNING</strong>: If you experience dizzyness or you are uncomfortable at some point, 
+        close your eyes and rest please.</p>
       <button id="modal-close" onclick="document.getElementById('modal-overlay').style.display='none'">
         Got it! — Begin
       </button>
@@ -83,6 +84,23 @@
       <option value="9">9</option>
     </select>
   </div>
+
+  <!-- Recording panel -->
+  <div id="rec-panel">
+    <div id="rec-row">
+      <span id="rec-dot"></span>
+      <span id="rec-label">Sin grabar</span>
+      <button id="btn-start" onclick="startRecording()">⏺ Recording Data Stream</button>
+      <button id="btn-stop"  onclick="stopRecording()" disabled>⏹ Stop Data Stream</button>
+    </div>
+    <div id="marker-row">
+      <span style="opacity:0.6">Marcador:</span>
+      <button class="mk-btn" id="mk0" onclick="setMarker(0)">None</button>
+      <button class="mk-btn" id="mk1" onclick="setMarker(1)">Cell 1</button>
+      <button class="mk-btn" id="mk9" onclick="setMarker(9)">Cel 9</button>
+    </div>
+    <div id="rec-filename"></div>
+  </div>
  
   <div id="scores"></div>
  
@@ -90,6 +108,45 @@
   <script src="./assets/js/websocket.js"></script>
   <script src="./assets/js/flicker.js"></script>
   <script src="./assets/js/app.js"></script>
- 
+
+  <!-- Recording controls -->
+  <script>
+    function startRecording() {
+      var label = prompt("Etiqueta del fichero (ej: celda1_celda9):", "experimento") || "experimento";
+      ws.send(JSON.stringify({ type: "start_recording", label: label }));
+    }
+
+    function stopRecording() {
+      ws.send(JSON.stringify({ type: "stop_recording" }));
+      setMarker(0);
+    }
+
+    function setMarker(value) {
+      ws.send(JSON.stringify({ type: "set_marker", value: value }));
+      document.querySelectorAll(".mk-btn").forEach(function(b) { b.classList.remove("active"); });
+      var btn = document.getElementById("mk" + value);
+      if (btn) btn.classList.add("active");
+    }
+
+    / Llama a esta función desde websocket.js cuando llegue un mensaje del servidor
+    function handleRecordingMessage(msg) {
+      if (msg.type === "recording_started") {
+        document.getElementById("rec-dot").classList.add("active");
+        document.getElementById("rec-label").textContent = "Grabando";
+        document.getElementById("btn-start").disabled = true;
+        document.getElementById("btn-stop").disabled  = false;
+        document.getElementById("rec-filename").textContent = msg.file || "";
+      }
+      if (msg.type === "recording_stopped") {
+        document.getElementById("rec-dot").classList.remove("active");
+        document.getElementById("rec-label").textContent = "Detenida";
+        document.getElementById("btn-start").disabled = false;
+        document.getElementById("btn-stop").disabled  = true;
+        document.getElementById("rec-filename").textContent = "";
+        document.querySelectorAll(".mk-btn").forEach(function(b) { b.classList.remove("active"); });
+      }
+    }
+  </script>
+
 </body>
 </html>
