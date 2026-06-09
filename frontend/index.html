@@ -128,7 +128,7 @@
       if (btn) btn.classList.add("active");
     }
 
-    / Llama a esta función desde websocket.js cuando llegue un mensaje del servidor
+    // Llama a esta función desde websocket.js cuando llegue un mensaje del servidor
     function handleRecordingMessage(msg) {
       if (msg.type === "recording_started") {
         document.getElementById("rec-dot").classList.add("active");
