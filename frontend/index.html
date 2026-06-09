@@ -112,17 +112,21 @@
   <!-- Recording controls -->
   <script>
     function startRecording() {
+      if(!socket || socket.readyState !== WebSocket.OPEN) return;
       var label = prompt("Etiqueta del fichero (ej: celda1_celda9):", "experimento") || "experimento";
-      ws.send(JSON.stringify({ type: "start_recording", label: label }));
+      socket.send(JSON.stringify({ type: "start_recording", label: label }));
     }
 
     function stopRecording() {
-      ws.send(JSON.stringify({ type: "stop_recording" }));
+      if(!socket || socket.readyState !== WebSocket.OPEN) return;
+      // ws.send(JSON.stringify({ type: "stop_recording" }));
+      socket.send(JSON.stringify({ type: "stop_recording"}));
       setMarker(0);
     }
 
     function setMarker(value) {
-      ws.send(JSON.stringify({ type: "set_marker", value: value }));
+      if(!socket || socket.readyState !== WebSocket.OPEN) return;
+      socket.send(JSON.stringify({ type: "set_marker", value: value }));
       document.querySelectorAll(".mk-btn").forEach(function(b) { b.classList.remove("active"); });
       var btn = document.getElementById("mk" + value);
       if (btn) btn.classList.add("active");

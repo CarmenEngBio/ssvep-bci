@@ -11,7 +11,7 @@ from eegsources    import build_source
 from preprocessing import preprocess
 from cca           import classify_window
 from voting        import Voter
-from recorder import EEGRecorder
+from recorder      import EEGRecorder
 
 recorder = EEGRecorder()
 LOOP_STEP = int(0.5*250) # indica el numero de muestras nuevas por iteracion (+- 125) 
