@@ -38,7 +38,7 @@ async def handler(ws, source):
                     await ws.send(json.dumps({"type": "recording_started", "file": fname or ""}))
                 elif msg_type == "stop_recording":
                     recorder.stop()
-                    await ws.send(json.dumps({"type": "recprding_stopped"}))
+                    await ws.send(json.dumps({"type": "recording_stopped"}))
                 elif msg_type == "set_marker":
                     recorder.set_marker(float(msg.get("value", 0)))
 

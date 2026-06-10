@@ -1,8 +1,8 @@
 
 
 # Selection of the execution MODE
-MODE        = "HARDWARE" 
-# MODE        = "DEMO"   
+# MODE        = "HARDWARE" 
+MODE        = "DEMO"   
 SERIAL_PORT = "COM5"  
  
 #  Acquisition Hardware
@@ -10,7 +10,9 @@ FS         = 250
 N_CHANNELS = 8     
  
 # Classification Window
-WINDOW_SEC = 4
+# WINDOW_SEC = 4
+WINDOW_SEC = 10 # probar entre 10-20s para tener mayor precision ~2500 muestras
+# multiplicado por 9 digitos de un numero telefonico tardaria en marcarse minuto y medio
 WINDOW     = FS * WINDOW_SEC
 
 # Umbrales de limpieza - Debido a la introducción de ruído en la señal de entrada por usar electrodos secos 
@@ -26,9 +28,9 @@ NOTCH_FREQ   = 50.0   # Hz (Power Line Interference EU~50 Hz)
 FILTER_ORDER = 4
 
 #  Cooldown despues de confirmar la seleccion
-COOLDOWN_SEC = 2.0 
+COOLDOWN_SEC = 2.0 # ocultar los numeros durante este gap! O pantalla en blanco
 #segundos de espera despues de q un digito se ha confirmado antes de aceptar un nuevo input
-#previene de falsos positivos entre selecicones de digitos consecutivas
+#previene de falsos positivos entre selecciones de digitos consecutivas
 
 #   Stimuli Frequencies 
 FREQS = {
@@ -45,4 +47,5 @@ N_COMPONENTS = 1
 CONFIDENCE_THRESHOLD = 0.35
  
 #  Temporal Voting 
-N_VOTES = 2
+# N_VOTES = 2
+N_VOTES = 10
