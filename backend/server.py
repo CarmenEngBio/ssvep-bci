@@ -5,7 +5,7 @@ import time
 import numpy as np
 import websockets
  
-from config        import MODE, WINDOW_SEC, N_HARMONICS, CONFIDENCE_THRESHOLD, N_VOTES, COOLDOWN_SEC
+from config        import MODE, WINDOW, WINDOW_SEC, N_HARMONICS, CONFIDENCE_THRESHOLD, N_VOTES, COOLDOWN_SEC
 from eegsources    import build_source
 # from preprocessing import preprocess, is_noisy
 from preprocessing import preprocess
