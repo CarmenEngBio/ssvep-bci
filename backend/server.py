@@ -83,8 +83,6 @@ async def handler(ws, source):
             
             clean               = preprocess(raw_eeg)
             label, conf, scores = classify_window(clean)
-            #DEBUGGING
-            print(f"[CCA] label={label}  conf={conf:.3f}  voted={voted if not in_cooldown else 'COOLDOWN'}")
             voted               = voter.vote(label) if not in_cooldown else None
 
             if voted is not None:
@@ -123,7 +121,7 @@ async def main():
         print("  Simulated EEG — use the selector from the UI to change the desired key!\n")
     else:
         print(f" Waiting 4 s to fill the EEG buffer...")
-        await asyncio.sleep(4)
+        await asyncio.sleep(4) # tiene que ser la mitad de window size!!
         print("  Ready! Focus your attention on the desired number.\n")
  
     try:
