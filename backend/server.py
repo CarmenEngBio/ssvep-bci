@@ -14,7 +14,7 @@ from voting        import Voter
 from recorder      import EEGRecorder
 
 recorder = EEGRecorder()
-LOOP_STEP = int(0.5*250) # indica el numero de muestras nuevas por iteracion (+- 125) 
+LOOP_STEP = int(0.5*WINDOW) # indica el numero de muestras nuevas por iteracion (+- 125) 
  
 #   Handler WebSocket 
 async def handler(ws, source):
@@ -127,7 +127,7 @@ async def main():
     try:
         async with websockets.serve(
             lambda ws: handler(ws, source),
-            "localhost", 8765
+            "localhost", 8765 # poner este puerto en el config
         ):
             await asyncio.Future()
     finally:
