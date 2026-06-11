@@ -1,7 +1,7 @@
 
 
 # Selection of the execution MODE
- MODE        = "HARDWARE" 
+MODE        = "HARDWARE" 
 # MODE        = "DEMO"   
 SERIAL_PORT = "COM5"  
  
