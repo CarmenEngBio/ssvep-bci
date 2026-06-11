@@ -120,8 +120,8 @@ async def main():
     if MODE == "DEMO":
         print("  Simulated EEG — use the selector from the UI to change the desired key!\n")
     else:
-        print(f" Waiting 4 s to fill the EEG buffer...")
-        await asyncio.sleep(4) # tiene que ser la mitad de window size!!
+        print(f" Waiting {WINDOW_SEC} s to fill the EEG buffer...")
+        await asyncio.sleep(WINDOW_SEC) 
         print("  Ready! Focus your attention on the desired number.\n")
  
     try:
