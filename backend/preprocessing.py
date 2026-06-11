@@ -17,7 +17,7 @@
 """
  
 import numpy as np
-from scipy.signal import butter, filtfilt
+from scipy.signal import butter, filtfilt,  sosfiltfilt
  
 from config import FS, BP_LOW, BP_HIGH, NOTCH_FREQ, FILTER_ORDER, NOISE_THRESHOLD_VAR, NOISE_THRESHOLD_ABS
  
@@ -31,17 +31,35 @@ def _butter_coeffs(low: float, high: float, btype: str):
     b, a = butter(FILTER_ORDER, [low / nyq, high / nyq], btype=btype)
     return b, a
  
- 
+
+def _butter_sos(low: float, high: float, btype: str):
+    nyq = FS / 2
+    sos = butter(
+        FILTER_ORDER,
+        [low / nyq, high / nyq],
+        btype=btype,
+        output="sos"
+    )
+    return sos
+
+
 #  Individual Filters 
+# def bandpass(signal: np.ndarray) -> np.ndarray:
+#    b, a = _butter_coeffs(BP_LOW, BP_HIGH, "band")
+#    return filtfilt(b, a, signal)
+
 def bandpass(signal: np.ndarray) -> np.ndarray:
-    b, a = _butter_coeffs(BP_LOW, BP_HIGH, "band")
-    return filtfilt(b, a, signal)
+    sos = _butter_sos(BP_LOW, BP_HIGH, "band")
+    return sosfiltfilt(sos, signal)
  
  
+# def notch(signal: np.ndarray) -> np.ndarray:
+#    b, a = _butter_coeffs(NOTCH_FREQ - 1, NOTCH_FREQ + 1, "bandstop")
+#    return filtfilt(b, a, signal)
+
 def notch(signal: np.ndarray) -> np.ndarray:
-    b, a = _butter_coeffs(NOTCH_FREQ - 1, NOTCH_FREQ + 1, "bandstop")
-    return filtfilt(b, a, signal)
- 
+    sos = _butter_sos(NOTCH_FREQ - 1, NOTCH_FREQ + 1, "bandstop")
+    return sosfiltfilt(sos, signal)
  
 def car(eeg: np.ndarray) -> np.ndarray:
     return eeg - eeg.mean(axis=0, keepdims=True)
