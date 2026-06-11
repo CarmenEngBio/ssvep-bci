@@ -83,6 +83,8 @@ async def handler(ws, source):
             
             clean               = preprocess(raw_eeg)
             label, conf, scores = classify_window(clean)
+            #DEBUGGING
+            print(f"[CCA] label={label}  conf={conf:.3f}  voted={voted if not in_cooldown else 'COOLDOWN'}")
             voted               = voter.vote(label) if not in_cooldown else None
 
             if voted is not None:
@@ -120,8 +122,8 @@ async def main():
     if MODE == "DEMO":
         print("  Simulated EEG — use the selector from the UI to change the desired key!\n")
     else:
-        print("  Waiting 2 s to fill the EEG buffer...")
-        await asyncio.sleep(2)
+        print(f" Waiting {WINDOW_SEC} s to fill the EEG buffer...")
+        await asyncio.sleep({WINDOW_SEC})
         print("  Ready! Focus your attention on the desired number.\n")
  
     try:
