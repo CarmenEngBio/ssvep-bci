@@ -125,6 +125,7 @@
       setMarker(0);
     }
 
+    /*
     function setMarker(value) {
       if(!socket || socket.readyState !== WebSocket.OPEN) return;
       socket.send(JSON.stringify({ type: "set_marker", value: value }));
@@ -132,6 +133,7 @@
       var btn = document.getElementById("mk" + value);
       if (btn) btn.classList.add("active");
     }
+    */
 
     // Llama a esta función desde websocket.js cuando llegue un mensaje del servidor
     function handleRecordingMessage(msg) {

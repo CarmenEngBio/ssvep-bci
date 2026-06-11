@@ -313,12 +313,12 @@ h1 { font-size: 1.2rem; color: #aaa; letter-spacing: .1em; font-weight: 400; }
 }
 #rec-panel button:disabled { opacity: .3; cursor: default; }
 
-#marker-row {
+/*#marker-row {
   display: flex;
   align-items: center;
   gap: .4rem;
   flex-wrap: wrap;
-}
+}*/
 
 .mk-btn.active {
   background: #1e281e !important;
