@@ -28,7 +28,7 @@ NOTCH_FREQ   = 50.0   # Hz (Power Line Interference EU~50 Hz)
 FILTER_ORDER = 4
 
 #  Cooldown despues de confirmar la seleccion
-COOLDOWN_SEC = 2.0 # ocultar los numeros durante este gap! O pantalla en blanco
+COOLDOWN_SEC = 4.0 # ocultar los numeros durante este gap! O pantalla en blanco
 #segundos de espera despues de q un digito se ha confirmado antes de aceptar un nuevo input
 #previene de falsos positivos entre selecciones de digitos consecutivas
 
@@ -48,4 +48,4 @@ CONFIDENCE_THRESHOLD = 0.35
  
 #  Temporal Voting 
 # N_VOTES = 2
-N_VOTES = 5
+N_VOTES = 3
