@@ -48,4 +48,4 @@ CONFIDENCE_THRESHOLD = 0.35
  
 #  Temporal Voting 
 # N_VOTES = 2
-N_VOTES = 3
+N_VOTES = 2
