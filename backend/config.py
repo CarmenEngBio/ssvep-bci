@@ -11,7 +11,7 @@ N_CHANNELS = 8
  
 # Classification Window
 # WINDOW_SEC = 4
-WINDOW_SEC = 10 # probar entre 10-20s para tener mayor precision ~2500 muestras
+WINDOW_SEC = 8 # probar entre 10-20s para tener mayor precision ~2500 muestras
 # multiplicado por 9 digitos de un numero telefonico tardaria en marcarse minuto y medio
 WINDOW     = FS * WINDOW_SEC
 
@@ -48,4 +48,4 @@ CONFIDENCE_THRESHOLD = 0.35
  
 #  Temporal Voting 
 # N_VOTES = 2
-N_VOTES = 10
+N_VOTES = 5
