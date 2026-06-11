@@ -98,7 +98,7 @@ async def handler(ws, source):
                 "cooldown": in_cooldown,
             }))
  
-            await asyncio.sleep(1.5)
+            await asyncio.sleep(1.5) #añadir este tiempo a config
  
     except websockets.exceptions.ConnectionClosed:
         print("✗ Client disconnected.")
