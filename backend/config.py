@@ -1,9 +1,13 @@
 
+# TO DO: ADD CONFIG VARIABLES SUCH AS DELAY VARIABLES FROM THE PROYECT
+# TO DO: TEST SYSTEM WITH THIS PARAMETERS
 
 # Selection of the execution MODE
 MODE        = "HARDWARE" 
 # MODE        = "DEMO"   
-SERIAL_PORT = "COM5"  
+SERIAL_PORT = "COM5" 
+
+WS_PORT = 8765
  
 #  Acquisition Hardware
 FS         = 250   
@@ -27,8 +31,12 @@ BP_HIGH      = 40.0   # Hz
 NOTCH_FREQ   = 50.0   # Hz (Power Line Interference EU~50 Hz)
 FILTER_ORDER = 4
 
+LOOP_STEP = int(0.5*WINDOW) # indica el numero de muestras nuevas por iteracion
+LOOP_SLEEP = 0.1 # 100 ms que espera entre una iteracion y la siguiente
+
 #  Cooldown despues de confirmar la seleccion
-COOLDOWN_SEC = 4.0 # ocultar los numeros durante este gap! O pantalla en blanco
+COOLDOWN_SEC = 30.0 # ocultar los numeros durante este gap! O pantalla en blanco
+# antes estaba a 4s, deberia ser menor que la ventana en teoria pero revisar! 
 #segundos de espera despues de q un digito se ha confirmado antes de aceptar un nuevo input
 #previene de falsos positivos entre selecciones de digitos consecutivas
 

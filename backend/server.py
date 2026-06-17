@@ -1,11 +1,12 @@
- 
+
 import asyncio
 import json
 import time  
 import numpy as np
 import websockets
  
-from config        import MODE, WINDOW, WINDOW_SEC, N_HARMONICS, CONFIDENCE_THRESHOLD, N_VOTES, COOLDOWN_SEC
+from config        import MODE, WINDOW, WINDOW_SEC, N_HARMONICS, CONFIDENCE_THRESHOLD, N_VOTES, COOLDOWN_SEC, LOOP_STEP, WS_PORT,
+                   LOOP_SLEEP
 from eegsources    import build_source
 # from preprocessing import preprocess, is_noisy
 from preprocessing import preprocess
@@ -14,7 +15,6 @@ from voting        import Voter
 from recorder      import EEGRecorder
 
 recorder = EEGRecorder()
-LOOP_STEP = int(0.5*WINDOW) # indica el numero de muestras nuevas por iteracion (+- 125) 
  
 #   Handler WebSocket 
 async def handler(ws, source):
@@ -27,7 +27,9 @@ async def handler(ws, source):
         while True:
             #   Incoming Messages
             try:
-                raw = await asyncio.wait_for(ws.recv(), timeout=0.01) # el timeout es suficiente o debe ser más grande?
+                raw = await asyncio.wait_for(ws.recv(), timeout=0.05) 
+                # para reducir la carga de la CPU al esperar a que lleguen mensajes del frontend
+                # si no llegan se sigue con la clasificacion
                 msg = json.loads(raw) #parsear los datos a JSON es buena estrategia?creo q si son: scores, confianza, eeg signal
                 msg_type = msg.get("type")
 
@@ -51,7 +53,7 @@ async def handler(ws, source):
 
             if recorder.is_recording:                                
                 t_now   = time.time()
-                chunk   = raw_eeg[:, -LOOP_STEP:] # últimas ~125 muestras (no solapadas)
+                chunk   = raw_eeg[:, -LOOP_STEP:] # últimas muestras (no solapadas)
                 ts_chunk = np.linspace(t_now - 0.5, t_now, LOOP_STEP, endpoint=False)
                 recorder.write_chunk(chunk, ts_chunk)
 
@@ -98,7 +100,7 @@ async def handler(ws, source):
                 "cooldown": in_cooldown,
             }))
  
-            await asyncio.sleep(1.5) #añadir este tiempo a config
+            await asyncio.sleep(LOOP_SLEEP) 
  
     except websockets.exceptions.ConnectionClosed:
         print("✗ Client disconnected.")
@@ -127,7 +129,7 @@ async def main():
     try:
         async with websockets.serve(
             lambda ws: handler(ws, source),
-            "localhost", 8765 # poner este puerto en el config
+            "localhost", WS_PORT
         ):
             await asyncio.Future()
     finally:

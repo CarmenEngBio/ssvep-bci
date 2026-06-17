@@ -15,7 +15,9 @@
     DataFilter.remove_environmental_noise(data[channel], sampling_rate, 
                                            NoiseTypes.FIFTY) 
 """
- 
+
+# TO DO: COMPARE AND TRY LFILTER INSTEAD OF FILT OR SOS 
+# TO DO. IMPLEMENT CHEBYSEV INSTEAD OF BUTTERWORTH SUCH AS MCGILL
 import numpy as np
 from scipy.signal import butter, filtfilt,  sosfiltfilt
  
@@ -63,6 +65,9 @@ def notch(signal: np.ndarray) -> np.ndarray:
  
 def car(eeg: np.ndarray) -> np.ndarray:
     return eeg - eeg.mean(axis=0, keepdims=True)
+
+def bipolar_o1_o2(eeg: np.ndarray, o1_idx: int, o2_idx: int) -> np.ndarray:
+    return eeg[:, o1_idx] - eeg[:, o2_idx]
  
 #  Full Pipeline
 def preprocess(eeg: np.ndarray) -> np.ndarray:

@@ -1,6 +1,9 @@
 
-var WS_URL   = 'ws://localhost:8765';
-var RETRY_MS = 2000; //Será este tiempo en valor más óptimo para el WebSocket?  
+import { CONFIG_WS_URL } from "./config.js";
+import { CONFIG_VAR_RETRY } from "./config.js";
+
+var WS_URL   = CONFIG_WS_URL;
+var RETRY_MS = CONFIG_VAR_RETRY; // If server lost its connections with frontend, the socket waits 2s and tries to re-connect again
  
 var socket = null;
  

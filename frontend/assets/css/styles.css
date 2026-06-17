@@ -1,5 +1,5 @@
 
- 
+/* # TO DO: TEST NEW UI WITH INE CELL  */ 
 * { box-sizing: border-box; margin: 0; padding: 0; }
  
 body {
@@ -11,7 +11,7 @@ body {
   align-items: center;
   min-height: 100vh;
   padding: 2rem 1rem;
-  gap: 1.2rem;
+  gap: 1.2rem; /* rem indicates number of px */
 }
  
 h1 { font-size: 1.2rem; color: #aaa; letter-spacing: .1em; font-weight: 400; }
@@ -80,6 +80,8 @@ h1 { font-size: 1.2rem; color: #aaa; letter-spacing: .1em; font-weight: 400; }
 }
 */
 
+/* Keypad for all cells representation */
+/*
 #keypad {
   display: grid;
   grid-template-columns: repeat(3, 100px);
@@ -89,7 +91,9 @@ h1 { font-size: 1.2rem; color: #aaa; letter-spacing: .1em; font-weight: 400; }
   width: 90vw;
   height: 95vh;
 }
- 
+*/
+
+/*
 .key {
   width: 100px;
   height: 100px;
@@ -102,15 +106,44 @@ h1 { font-size: 1.2rem; color: #aaa; letter-spacing: .1em; font-weight: 400; }
   justify-content: center;
   font-size: 1.6rem;
   font-weight: 500;
-  color: #bbb;           /* grey numbers */
+  color: #bbb;           /* grey numbers 
   user-select: none;
 }
+*/
+
+/* Keypad for just one big center cell representation */
+#keypad {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.key {
+  display: none;
+}
+
+.key.active {
+  display: flex;
+  width: 8cm;
+  height: 8cm;
+  background: #222;
+  border: 1px solid #3a3a3a;
+  border-radius: 10px;
+
+  align-items: center;
+  justify-content: center;
+
+  font-size: 2rem;
+}
  
-.key small {
-  font-size: .55rem;
+/* Updating number shape size for biiger unique center cell testing */
+.key small {    
+  font-size: .9 rem; /* .55 rem */
   color: #555;
-  font-weight: 400;
-  margin-top: 4px;
+  /* font-weight: 400; */
+  margin-top: 6px; /* 4px */
 }
  
 /* BLINKING */

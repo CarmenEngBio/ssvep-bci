@@ -20,10 +20,10 @@ def ref_signal(freq: float) -> np.ndarray:
 #  Classification per window
 # Clasifica una ventana EEG con CCA comparando todas las frecuencias SSVEP
 def classify_window(eeg: np.ndarray) -> tuple[str | None, float, dict]:
-    X      = eeg.T   # (WINDOW, N_CHANNELS)
+    # X      = eeg.T   # (WINDOW, N_CHANNELS)
     # CCA evaluando todos los canales disponibles es más concluyente que usando solo 2 canales, donde la operacion es peor
     # Este enfoque es estándar en la literatura: Chen et al. 2015 y Nakanishi et al. 2018.
-    #X = eeg[-2:].T  # antes: eeg.T (8 canales) → ahora solo O1, O2 (occipitales) para ver si clasifica mejor la señal
+    X = eeg[-4:].T  # antes: eeg.T (8 canales) → ahora solo P7, P8, O1 y O2 (parietales + occipitales) para ver si clasifica mejor la señal
     scores = {}
  
     for label, freq in FREQS.items():

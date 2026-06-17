@@ -4,7 +4,7 @@ function initFlicker() {
     .filter(el => parseFloat(el.dataset.freq) > 0)
     .map(el => ({
       el,
-      period:  1000 / (parseFloat(el.dataset.freq) * 2),  // ms per halfcicle
+      period:  1000 / (parseFloat(el.dataset.freq) * 2),  // ms per halfcicle due to transitions ON/OFF states
       elapsed: 0,
       state:   false,
     }));
