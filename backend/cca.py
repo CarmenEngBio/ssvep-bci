@@ -1,5 +1,5 @@
 
- 
+# TO DO: research of FBCCA ALGORITHM IMPLEMENTATION OR ATTEMPTING WITH THE PSD ANALYSIS INSTEAD
 import numpy as np
 from sklearn.cross_decomposition import CCA
  
