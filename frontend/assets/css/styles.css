@@ -126,6 +126,7 @@ h1 { font-size: 1.2rem; color: #aaa; letter-spacing: .1em; font-weight: 400; }
 
 .key.active {
   display: flex;
+  flex-direction: column; /* uno encima del otro */
   width: 8cm;
   height: 8cm;
   background: #222;
@@ -135,15 +136,15 @@ h1 { font-size: 1.2rem; color: #aaa; letter-spacing: .1em; font-weight: 400; }
   align-items: center;
   justify-content: center;
 
-  font-size: 2rem;
+  font-size: 4rem; /* Tamaño del número */
 }
  
 /* Updating number shape size for biiger unique center cell testing */
 .key small {    
-  font-size: .9 rem; /* .55 rem */
+  font-size: .1rem; /* .55 rem */ /* Tamaño de la frecuencia */
   color: #555;
   /* font-weight: 400; */
-  margin-top: 6px; /* 4px */
+  margin-top: 8px; /* 4px */
 }
  
 /* BLINKING */
