@@ -45,9 +45,9 @@ COOLDOWN_SEC = 30.0 # ocultar los numeros durante este gap! O pantalla en blanco
 
 # FREQS = { "2": 10 }
 
-FREQS = { "3": 12 }
+# FREQS = { "3": 12 }
 
-# FREQS = { "4": 15 }
+ FREQS = { "4": 15 }
 """
 FREQS = {
     "0": 8.0,  "1": 8.5,  "2": 9.0,  "3": 9.5,  "4": 10.0,
