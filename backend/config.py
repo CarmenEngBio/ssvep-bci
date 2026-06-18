@@ -42,12 +42,12 @@ COOLDOWN_SEC = 30.0 # ocultar los numeros durante este gap! O pantalla en blanco
 
 #   Stimuli Frequencies 
 FREQS = { "1": 8.57 }
-/*
+"""
 FREQS = {
     "0": 8.0,  "1": 8.5,  "2": 9.0,  "3": 9.5,  "4": 10.0,
     "5": 10.5, "6": 11.0, "7": 11.5, "8": 12.0, "9": 12.5,
 }
-*/
+"""
  
 #   CCA 
 N_HARMONICS  = 3   
