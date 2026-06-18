@@ -142,7 +142,7 @@ h1 { font-size: 1.2rem; color: #aaa; letter-spacing: .1em; font-weight: 400; }
 /* Updating number shape size for biiger unique center cell testing */
 .key small {    
   font-size: .1rem; /* .55 rem */ /* Tamaño de la frecuencia */
-  color: #555;
+  color: #888787;
   /* font-weight: 400; */
   margin-top: 8px; /* 4px */
 }
