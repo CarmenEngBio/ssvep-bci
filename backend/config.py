@@ -32,8 +32,7 @@ NOTCH_FREQ   = 50.0   # Hz (Power Line Interference EU~50 Hz)
 FILTER_ORDER = 4
 
 LOOP_STEP = int(0.5*WINDOW) # indica el numero de muestras nuevas por iteracion
-# LOOP_SLEEP = 0.1 # 100 ms que espera entre una iteracion y la siguiente
-LOOP_SLEEP = 5
+LOOP_SLEEP = 0.1 # 100 ms que espera entre una iteracion y la siguiente
 
 #  Cooldown despues de confirmar la seleccion
 COOLDOWN_SEC = 30.0 # ocultar los numeros durante este gap! O pantalla en blanco
