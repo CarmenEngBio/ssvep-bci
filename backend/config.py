@@ -43,9 +43,9 @@ COOLDOWN_SEC = 30.0 # ocultar los numeros durante este gap! O pantalla en blanco
 #   Stimuli Frequencies 
 # FREQS = { "1": 8.57 }
 
-FREQS = { "2": 10 }
+# FREQS = { "2": 10 }
 
-# FREQS = { "3": 12 }
+FREQS = { "3": 12 }
 
 # FREQS = { "4": 15 }
 """
