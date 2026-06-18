@@ -3,8 +3,8 @@
 # TO DO: TEST SYSTEM WITH THIS PARAMETERS
 
 # Selection of the execution MODE
-MODE        = "HARDWARE" 
-# MODE        = "DEMO"   
+# MODE        = "HARDWARE" 
+MODE        = "DEMO"   
 SERIAL_PORT = "COM5" 
 
 WS_PORT = 8765
